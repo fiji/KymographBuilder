@@ -24,20 +24,55 @@
 package fiji.plugin.kymographbuilder;
 
 import net.imagej.Dataset;
+import net.imagej.ImageJ;
+import net.imagej.axis.Axes;
+import org.scijava.ui.DialogPrompt.MessageType;
+import org.scijava.ui.DialogPrompt.OptionType;
+import org.scijava.ui.DialogPrompt.Result;
+import static org.scijava.ui.DialogPrompt.Result.YES_OPTION;
 
 /**
  *
  * @author Hadrien Mary <hadrien.mary@gmail.com>
  */
 public class Utils {
-    
+
     /**
-     * Check if Z and Time dimensions should be swapped in a given dataset. If it does then ask user if he wants to swap them.
-     * 
+     * Check if Z and Time dimensions should be swapped in a given dataset. If it does then ask user
+     * if he wants to swap them.
+     *
+     * @param ij
      * @param dataset
      */
-    public static void swapTimeAndZDimensions(Dataset dataset){
-        
+    public static void swapTimeAndZDimensions(ImageJ ij, Dataset dataset) {
+
+        int zIdx = dataset.dimensionIndex(Axes.Z);
+        int timeIdx = dataset.dimensionIndex(Axes.TIME);
+
+        long timeDim = dataset.dimension(timeIdx);
+        long zDim = dataset.dimension(zIdx);
+
+        if (timeDim < zDim) {
+            String mess = new String();
+            mess += "It appears this image has " + timeDim + " timepoints";
+            mess += " and " + zDim + " Z slices.\n";
+            mess += "Do you want to swap Z and T axes ?";
+            Result result = ij.ui().showDialog(mess,
+                    MessageType.QUESTION_MESSAGE,
+                    OptionType.YES_NO_OPTION);
+            result.equals(YES_OPTION);
+
+            if (result.equals(YES_OPTION)) {
+                if (zIdx != -1) {
+                    dataset.axis(zIdx).setType(Axes.TIME);
+                }
+                if (timeIdx != -1) {
+                    dataset.axis(timeIdx).setType(Axes.Z);
+                }
+            }
+
+        }
+
     }
-    
+
 }

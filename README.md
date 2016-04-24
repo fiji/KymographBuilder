@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/4163/hadim/KymographBuilder.svg)](https://zenodo.org/badge/latestdoi/4163/hadim/KymographBuilder)
+
 # KymographBuilder
 
 `KymographBuilder` is **Yet Another Kymograph Fiji plugin**.
@@ -17,6 +19,10 @@
 `KymographBuilder` has been created by [Hadrien Mary](mailto:hadrien.mary@gmail.com).
 
 This work started in 2016 at the [Gary Brouhard laboratory](http://brouhardlab.mcgill.ca/) at the University of McGill.
+
+# How to cite
+
+If you use this plugin for your research, don't forget to cite it : [![DOI](https://zenodo.org/badge/4163/hadim/KymographBuilder.svg)](https://zenodo.org/badge/latestdoi/4163/hadim/KymographBuilder)
 
 ## License
 

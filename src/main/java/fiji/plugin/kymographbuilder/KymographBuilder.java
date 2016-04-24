@@ -68,6 +68,8 @@ public class KymographBuilder implements Command {
     public void run() {
 
         log.info("Running " + PLUGIN_NAME + " version " + VERSION);
+        
+        Utils.swapTimeAndZDimensions(ij, dataset);
 
     }
 
