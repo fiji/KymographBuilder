@@ -38,7 +38,7 @@ import org.scijava.ui.UIService;
 
 /**
  *
- * @author Hadrien Mary <hadrien.mary@gmail.com>
+ * @author Hadrien Mary
  */
 public class KymographFactory {
 

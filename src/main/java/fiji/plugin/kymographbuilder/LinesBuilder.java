@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  *
- * @author Hadrien Mary <hadrien.mary@gmail.com>
+ * @author Hadrien Mary
  */
 public class LinesBuilder {
 

@@ -41,7 +41,7 @@ import org.scijava.plugin.Parameter;
 /**
  * The main class that actually build the kymograph for one channel.
  *
- * @author Hadrien Mary <hadrien.mary@gmail.com>
+ * @author Hadrien Mary
  */
 public class KymographCreator {
 

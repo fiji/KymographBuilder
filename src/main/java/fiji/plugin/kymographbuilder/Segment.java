@@ -26,7 +26,7 @@ package fiji.plugin.kymographbuilder;
 /**
  * Simple Line class. I called it Segment instead of Line to avoid name conflict.
  *
- * @author Hadrien Mary <hadrien.mary@gmail.com>
+ * @author Hadrien Mary
  */
 class Segment {
 
