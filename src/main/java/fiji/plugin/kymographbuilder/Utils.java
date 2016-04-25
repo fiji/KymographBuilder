@@ -23,13 +23,18 @@
  */
 package fiji.plugin.kymographbuilder;
 
+import ij.ImagePlus;
+import ij.gui.Roi;
+import ij.plugin.frame.RoiManager;
 import net.imagej.Dataset;
 import net.imagej.ImageJ;
 import net.imagej.axis.Axes;
+import org.scijava.convert.ConvertService;
 import org.scijava.ui.DialogPrompt.MessageType;
 import org.scijava.ui.DialogPrompt.OptionType;
 import org.scijava.ui.DialogPrompt.Result;
 import static org.scijava.ui.DialogPrompt.Result.YES_OPTION;
+import org.scijava.ui.UIService;
 
 /**
  *
@@ -132,6 +137,30 @@ public class Utils {
             }
         }
 
+    }
+
+    static Roi checkForROIs(Dataset dataset, ConvertService convert, UIService ui) {
+        ImagePlus imp = convert.convert(dataset, ImagePlus.class);
+        Roi roi = imp.getRoi();
+
+        if (roi == null) {
+            // Look in ROI manager
+            RoiManager rm = RoiManager.getRoiManager();
+            roi = rm.getRoi(0);
+        }
+
+        if (roi == null) {
+            ui.showDialog("Please define a line in order to build the kymograph.");
+            return null;
+        }
+
+        if (!"Straight Line".equals(roi.getTypeAsString())
+                && !"Polyline".equals(roi.getTypeAsString())) {
+            ui.showDialog("Please use the Straight Line or Segmented Line selection tool.");
+            return null;
+        }
+
+        return roi;
     }
 
 }

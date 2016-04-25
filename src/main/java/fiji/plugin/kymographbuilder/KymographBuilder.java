@@ -1,5 +1,7 @@
 package fiji.plugin.kymographbuilder;
 
+import ij.ImagePlus;
+import ij.gui.Roi;
 import ij.plugin.frame.RoiManager;
 import io.scif.services.DatasetIOService;
 
@@ -82,9 +84,17 @@ public class KymographBuilder implements Command {
 
         log.info("Running " + PLUGIN_NAME + " version " + VERSION);
 
+        Roi roi = Utils.checkForROIs(dataset, ij.convert(), ij.ui());
+        if (roi == null) {
+            // Close the plugin
+            return;
+        }
+        log.info(roi);
+
         // Check if T and Z need to be swapped.
         Utils.swapTimeAndZDimensions(ij, dataset);
 
+        // Print some infos
         log.info(Utils.getInfo(dataset, "\t"));
 
         // Decide which channels to use
@@ -101,7 +111,7 @@ public class KymographBuilder implements Command {
         }
         log.info("The following channels will be used : " + channelsUsed);
 
-        // Init kymo creator for each channels
+        // Init kymo creator for each channels and build kymos
         for (Integer i : channelsUsed) {
             KymographCreator creator = new KymographCreator(ij.context(), i);
             creator.build();
@@ -142,5 +152,6 @@ public class KymographBuilder implements Command {
         rm.runCommand("Show All");
 
         ij.log().info("Load ROIs data.");
+
     }
 }
