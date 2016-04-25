@@ -61,14 +61,14 @@
 		</contributors>
 
 		<scm>
-			<connection>scm:git:git://github.com/hadim/KymographBuilder</connection>
-			<developerConnection>scm:git:git@github.com:hadim/KymographBuilder</developerConnection>
+			<connection>scm:git:git://github.com/fiji/KymographBuilder</connection>
+			<developerConnection>scm:git:git@github.com:fiji/KymographBuilder</developerConnection>
 			<tag>HEAD</tag>
-			<url>https://github.com/hadim/KymographBuilder</url>
+			<url>https://github.com/fiji/KymographBuilder</url>
 		</scm>
 		<issueManagement>
 			<system>GitHub Issues</system>
-			<url>https://github.com/hadim/KymographBuilder/issues</url>
+			<url>https://github.com/fiji/KymographBuilder/issues</url>
 		</issueManagement>
 
 		<repositories>
