@@ -142,6 +142,7 @@ public class KymographCreator {
         int timeDimension = (int) this.dataset.dimension(this.dataset.dimensionIndex(Axes.TIME));
         int xDimension = (int) this.dataset.dimension(this.dataset.dimensionIndex(Axes.X));
         int yDimension = (int) this.dataset.dimension(this.dataset.dimensionIndex(Axes.Y));
+        int channelDimension = (int) this.dataset.dimension(this.dataset.dimensionIndex(Axes.CHANNEL));
 
         Line currentLine;
 
@@ -182,7 +183,11 @@ public class KymographCreator {
                     if ((x > 0) && (x < xDimension) && (y > 0) && (y < yDimension)) {
 
                         // TODO : Build position according to dataset dimension indexes
-                        this.datasetCursor.setPosition(new int[]{x, y, this.channel, t});
+                        if (channelDimension >= 2) {
+                            this.datasetCursor.setPosition(new int[]{x, y, this.channel, t});
+                        } else {
+                            this.datasetCursor.setPosition(new int[]{x, y, t});
+                        }
                         this.kymographCursor.setPosition(new int[]{t, offset + j, i});
                         final T pixel = (T) this.kymographCursor.get();
                         pixel.set((T) this.datasetCursor.get());

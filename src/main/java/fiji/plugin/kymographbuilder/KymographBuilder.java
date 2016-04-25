@@ -61,7 +61,8 @@ public class KymographBuilder implements Command {
 
     @Parameter(label = "Channel Index",
             description = "Channel index used to build the kymograph."
-            + "Use a value of -1 to use all channels.")
+            + "Use a value of -1 to use all channels.",
+            min = "-1")
     private int channelToUse = -1;
 
     public static final String PLUGIN_NAME = "KymographBuilder";
