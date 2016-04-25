@@ -6,13 +6,17 @@
 
 ## Features
 
-- Builder kymograph from single or multiple lines.
-- Builder kymograph for images with multiple channels.
+- Builde kymograph from single or multiple lines.
+- Builde kymograph for images with multiple channels.
 - Entirely built from scratch and using the [Imagej2 Ecosystem](http://imagej.net/ImageJ2).
 - Fast and easy to use :
     - Draw a line
     - Launch `KymographBuilder`
     - You're done.
+
+## Install
+
+For now and before I found a better way you can download the plugin there : https://github.com/hadim/KymographBuilder/releases.
 
 ## Authors
 
