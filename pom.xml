@@ -70,6 +70,10 @@
 			<system>GitHub Issues</system>
 			<url>https://github.com/fiji/KymographBuilder/issues</url>
 		</issueManagement>
+		<ciManagement>
+			<system>Jenkins</system>
+			<url>http://jenkins.imagej.net/job/KymographBuilder/</url>
+		</ciManagement>
 
 		<repositories>
 			<repository>
