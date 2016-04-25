@@ -38,13 +38,46 @@ import static org.scijava.ui.DialogPrompt.Result.YES_OPTION;
 public class Utils {
 
     /**
+     * Return some common informations about a dataset.
+     *
+     * @param dataset
+     * @return
+     */
+    public static String getInfo(Dataset dataset, String prefix) {
+        String s = new String();
+
+        s += prefix + "Dataset : " + dataset.toString() + "\n";
+
+        s += prefix + "Width = ";
+        s += dataset.dimension(dataset.dimensionIndex(Axes.X)) + "\n";
+
+        s += prefix + "Height = ";
+        s += dataset.dimension(dataset.dimensionIndex(Axes.Y)) + "\n";
+
+        s += prefix + "Depth = ";
+        s += dataset.dimension(dataset.dimensionIndex(Axes.Z)) + "\n";
+
+        s += prefix + "Timepoints = ";
+        s += dataset.dimension(dataset.dimensionIndex(Axes.TIME)) + "\n";
+
+        s += prefix + "Number of channels = ";
+        s += dataset.dimension(dataset.dimensionIndex(Axes.CHANNEL)) + "\n";
+
+        return s;
+    }
+
+    public static String getInfo(Dataset dataset) {
+        return getInfo(dataset, "");
+    }
+
+    /**
      * Check if Z and Time dimensions should be swapped in a given dataset. If it does then ask user
      * if he wants to swap them.
      *
      * @param ij
      * @param dataset
      */
-    public static void swapTimeAndZDimensions(ImageJ ij, Dataset dataset) {
+    public static void askToSwapTimeAndZDimensions(ImageJ ij, Dataset dataset) {
 
         int zIdx = dataset.dimensionIndex(Axes.Z);
         int timeIdx = dataset.dimensionIndex(Axes.TIME);
@@ -71,6 +104,32 @@ public class Utils {
                 }
             }
 
+        }
+
+    }
+
+    /**
+     * Check if Z and Time dimensions should be swapped in a given dataset. If it does then swap
+     * them without asking.
+     *
+     * @param ij
+     * @param dataset
+     */
+    public static void swapTimeAndZDimensions(ImageJ ij, Dataset dataset) {
+
+        int zIdx = dataset.dimensionIndex(Axes.Z);
+        int timeIdx = dataset.dimensionIndex(Axes.TIME);
+
+        long timeDim = dataset.dimension(timeIdx);
+        long zDim = dataset.dimension(zIdx);
+
+        if (timeDim < zDim) {
+            if (zIdx != -1) {
+                dataset.axis(zIdx).setType(Axes.TIME);
+            }
+            if (timeIdx != -1) {
+                dataset.axis(timeIdx).setType(Axes.Z);
+            }
         }
 
     }

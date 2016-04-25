@@ -4,9 +4,14 @@ import ij.plugin.frame.RoiManager;
 import io.scif.services.DatasetIOService;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
+import java.util.stream.IntStream;
 
 import net.imagej.Dataset;
 import net.imagej.ImageJ;
+import net.imagej.axis.Axes;
 import net.imagej.display.ImageDisplayService;
 import net.imagej.display.OverlayService;
 import net.imagej.patcher.LegacyInjector;
@@ -52,6 +57,14 @@ public class KymographBuilder implements Command {
     @Parameter(type = ItemIO.INPUT)
     private Dataset dataset;
 
+    @Parameter(type = ItemIO.OUTPUT)
+    private Dataset kymograph;
+
+    @Parameter(label = "Channel Index",
+            description = "Channel index used to build the kymograph."
+            + "Use a value of -1 to use all channels.")
+    private int channelToUse = -1;
+
     public static final String PLUGIN_NAME = "KymographBuilder";
     public static final String VERSION = version();
 
@@ -68,8 +81,31 @@ public class KymographBuilder implements Command {
     public void run() {
 
         log.info("Running " + PLUGIN_NAME + " version " + VERSION);
-        
+
+        // Check if T and Z need to be swapped.
         Utils.swapTimeAndZDimensions(ij, dataset);
+
+        log.info(Utils.getInfo(dataset, "\t"));
+
+        // Decide which channels to use
+        List<Integer> channelsUsed = new ArrayList<>();
+        if (channelToUse == -1) {
+            // Use all channels
+            int channelIdx = dataset.dimensionIndex(Axes.CHANNEL);
+            for (int i = 0; i < dataset.dimension(channelIdx); i++) {
+                channelsUsed.add(i);
+            }
+        } else {
+            // Use only one channel
+            channelsUsed.add(channelToUse);
+        }
+        log.info("The following channels will be used : " + channelsUsed);
+
+        // Init kymo creator for each channels
+        for (Integer i : channelsUsed) {
+            KymographCreator creator = new KymographCreator(ij.context(), i);
+            creator.build();
+        }
 
     }
 
