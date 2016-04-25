@@ -19,7 +19,7 @@ See the ImageJ wiki related page : http://imagej.net/KymographBuilder_:_Yet_Anot
 
 ## Install
 
-For now and before I found a better way you can download the plugin there : https://github.com/hadim/KymographBuilder/releases.
+For now and before I found a better way you can download the plugin there : https://github.com/fiji/KymographBuilder/releases.
 
 Run the plugin with `Plugins ► Kymograph ► KymographBuilder`.
 
