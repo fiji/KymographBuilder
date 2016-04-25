@@ -8,7 +8,8 @@
 
 - Build kymograph from single or multiple lines (a polyline).
 - Build kymograph for images with multiple channels.
-- Entirely built from scratch and using the [Imagej2 Ecosystem](http://imagej.net/ImageJ2).
+- Take into account the width of the line using maximum projection along its thickness.
+- Built from scratch and use the [Imagej2 Ecosystem](http://imagej.net/ImageJ2).
 - Fast and easy to use :
     - Draw a line
     - Launch `KymographBuilder`
