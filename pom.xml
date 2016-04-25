@@ -23,7 +23,7 @@
 		<developer>
 			<id>hadim</id>
 			<name>Hadrien Mary</name>
-			<email>hadrien.mary@gmail.com</email>
+			<url>http://imagej.net/User:Hadim</url>
 			<roles>
 				<role>founder</role>
 				<role>lead</role>
@@ -34,6 +34,22 @@
 				<role>maintainer</role>
 			</roles>
 			<timezone>-5</timezone>
+		</developer>
+		<developer>
+			<id>ctrueden</id>
+			<name>Curtis Rueden</name>
+			<url>http://imagej.net/User:Rueden</url>
+			<roles>
+				<role>maintainer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>hinerm</id>
+			<name>Mark Hiner</name>
+			<url>http://imagej.net/User:Hinerm</url>
+			<roles>
+				<role>maintainer</role>
+			</roles>
 		</developer>
 	</developers>
 	<contributors>
