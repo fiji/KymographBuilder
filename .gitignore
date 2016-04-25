@@ -6,14 +6,15 @@
 /.project
 /.settings/
 
+## NetBeans ##
+nbactions.xml
+nb-configuration.xml
+
 ## vim ##
 *.swp
 
 ## Interactive tests ##
 /samples/
 
-## MacOSX
+## MacOSX ##
 .DS_Store
-
-nbactions.xml
-nb-configuration.xml
