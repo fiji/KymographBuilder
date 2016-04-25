@@ -14,7 +14,7 @@
 
     <groupId>sc.fiji</groupId>
     <artifactId>KymographBuilder</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.1</version>
 
     <name>KymographBuilder</name>
     <description />
