@@ -4,6 +4,8 @@
 
 `KymographBuilder` is **Yet Another Kymograph Fiji plugin**.
 
+See the ImageJ wiki related page : http://imagej.net/KymographBuilder_:_Yet_Another_Kymograph_Fiji_plugin
+
 ## Features
 
 - Build kymograph from single or multiple lines (a polyline).
