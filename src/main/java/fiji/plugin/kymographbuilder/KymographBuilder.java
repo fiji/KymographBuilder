@@ -1,6 +1,5 @@
 package fiji.plugin.kymographbuilder;
 
-import ij.ImagePlus;
 import ij.gui.Roi;
 import ij.plugin.frame.RoiManager;
 import io.scif.services.DatasetIOService;
@@ -8,10 +7,6 @@ import io.scif.services.DatasetIOService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import static java.util.stream.Collectors.toList;
-import java.util.stream.IntStream;
 
 import net.imagej.Dataset;
 import net.imagej.ImageJ;
@@ -62,7 +57,7 @@ public class KymographBuilder implements Command {
     private Dataset dataset;
 
     @Parameter(type = ItemIO.OUTPUT)
-    private List<Dataset> kymographs;
+    private Dataset kymograph;
 
     @Parameter(label = "Channel Index",
             description = "Channel index used to build the kymograph."
@@ -86,7 +81,6 @@ public class KymographBuilder implements Command {
 
         log.info("Running " + PLUGIN_NAME + " version " + VERSION);
 
-        // TODO: get all ROIs
         Roi roi = Utils.checkForROIs(dataset, ij.convert(), ij.ui());
         if (roi == null) {
             // Close the plugin
@@ -113,14 +107,13 @@ public class KymographBuilder implements Command {
         }
         log.info("The following channels will be used : " + channelsUsed);
 
-        // TODO : Loop over all ROIs
         KymographFactory factory = new KymographFactory(ij.context(), dataset, roi, channelsUsed);
         factory.build();
 
-    }
+        // Get the results, add to command output.
+        this.kymograph = factory.getKymograph();
 
-    public void cancel() {
-        log.info("Closing " + PLUGIN_NAME);
+        log.info("Kymograph \"" + kymograph + "\" has been correcly generated.");
     }
 
     public static void main(final String... args) throws Exception {

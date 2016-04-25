@@ -29,6 +29,8 @@ import net.imagej.Dataset;
 import net.imagej.DatasetService;
 import net.imagej.axis.Axes;
 import net.imagej.axis.AxisType;
+import net.imagej.ops.OpService;
+import net.imagej.ops.special.computer.UnaryComputerOp;
 import net.imglib2.RandomAccess;
 import net.imglib2.type.Type;
 import org.scijava.Context;
@@ -52,17 +54,22 @@ public class KymographCreator {
     @Parameter
     private DatasetService dsService;
 
-    private Dataset dataset;
+    @Parameter
+    private OpService opService;
+
+    private final Dataset dataset;
     private Dataset kymograph;
     private Dataset projectedKymograph;
-    private int channel;
-    private LinesBuilder linesBuilder;
+
+    private final int channel;
+    private final LinesBuilder linesBuilder;
+
     private RandomAccess datasetCursor;
     private RandomAccess kymographCursor;
 
     public KymographCreator(Context context, Dataset dataset,
             int channel, LinesBuilder linesBuilder) {
-        
+
         context.inject(this);
         this.channel = channel;
         this.linesBuilder = linesBuilder;
@@ -78,6 +85,11 @@ public class KymographCreator {
     }
 
     public void build() {
+        this.buildKymograph();
+        this.projectKymograph();
+    }
+
+    public void buildKymograph() {
 
         // Create kymograph dataset
         // A 3D dataset because it contains one kymograph by "width" unit
@@ -86,10 +98,7 @@ public class KymographCreator {
         dimensions[1] = this.linesBuilder.getTotalLength() - this.linesBuilder.getLines().size() + 1;
         dimensions[2] = this.linesBuilder.getlineWidth();
 
-        AxisType[] axisTypes = new AxisType[3];
-        axisTypes[0] = Axes.X;
-        axisTypes[1] = Axes.Y;
-        axisTypes[2] = Axes.Z;
+        AxisType[] axisTypes = {Axes.X, Axes.Y, Axes.Z};
 
         String title = dataset.getName() + " (Kymograph)";
 
@@ -131,6 +140,8 @@ public class KymographCreator {
         int new_yEnd;
 
         int timeDimension = (int) this.dataset.dimension(this.dataset.dimensionIndex(Axes.TIME));
+        int xDimension = (int) this.dataset.dimension(this.dataset.dimensionIndex(Axes.X));
+        int yDimension = (int) this.dataset.dimension(this.dataset.dimensionIndex(Axes.Y));
 
         Line currentLine;
 
@@ -139,7 +150,7 @@ public class KymographCreator {
         int npoints;
         int x;
         int y;
-        
+
         ImagePlus imp = convert.convert(this.dataset, ImagePlus.class);
 
         // Iterate over all parallel lines (defined by lineWidth)
@@ -166,17 +177,45 @@ public class KymographCreator {
 
                 // Iterate over the time axis
                 for (int t = 0; t < timeDimension; t++) {
-                    // TODO : Build position according to dataset dimension indexes
-                    this.datasetCursor.setPosition(new int[]{x, y, this.channel, t});
-                    this.kymographCursor.setPosition(new int[]{t, offset + j, i});
-                    final T pixel = (T) this.kymographCursor.get();
-                    pixel.set((T) this.datasetCursor.get());
+
+                    // Check we are inside the image
+                    if ((x > 0) && (x < xDimension) && (y > 0) && (y < yDimension)) {
+
+                        // TODO : Build position according to dataset dimension indexes
+                        this.datasetCursor.setPosition(new int[]{x, y, this.channel, t});
+                        this.kymographCursor.setPosition(new int[]{t, offset + j, i});
+                        final T pixel = (T) this.kymographCursor.get();
+                        pixel.set((T) this.datasetCursor.get());
+                    }
                 }
 
             }
 
         }
 
+    }
+
+    private void projectKymograph() {
+
+        long xDimension = this.kymograph.dimension(this.kymograph.dimensionIndex(Axes.X));
+        long yDimension = this.kymograph.dimension(this.kymograph.dimensionIndex(Axes.Y));
+        long[] dimensions = {xDimension, yDimension};
+
+        AxisType[] axisTypes = {Axes.X, Axes.Y};
+
+        String title = dataset.getName() + " (Projected Kymograph)";
+
+        this.projectedKymograph = dsService.create(dimensions, title, axisTypes,
+                dataset.getValidBits(), dataset.isSigned(), !dataset.isInteger());
+
+        // I don't understand everything here (mostly the type stuff) but it works...
+        UnaryComputerOp maxOp = (UnaryComputerOp) opService.op(net.imagej.ops.Ops.Stats.Max.class,
+                this.kymograph.getImgPlus().getImg());
+
+        opService.transform().project(this.projectedKymograph.getImgPlus().getImg(),
+                this.kymograph.getImgPlus(),
+                maxOp,
+                this.kymograph.dimensionIndex(Axes.Z));
     }
 
 }

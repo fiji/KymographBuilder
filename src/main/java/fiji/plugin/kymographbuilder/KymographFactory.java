@@ -25,9 +25,11 @@ package fiji.plugin.kymographbuilder;
 
 import ij.ImagePlus;
 import ij.gui.Roi;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import net.imagej.Dataset;
+import net.imagej.DatasetService;
 import org.scijava.Context;
 import org.scijava.convert.ConvertService;
 import org.scijava.log.LogService;
@@ -47,18 +49,22 @@ public class KymographFactory {
     private Context context;
 
     @Parameter
+    private DatasetService dsService;
+
+    @Parameter
     private LogService log;
-    
+
     @Parameter
     private ConvertService convert;
-    
+
     @Parameter
     private UIService ui;
 
-    private Dataset dataset;
+    private final Dataset dataset;
+    private Dataset kymograph;
 
-    private Roi roi;
-    private List<Integer> channelsUsed;
+    private final Roi roi;
+    private final List<Integer> channelsUsed;
 
     public KymographFactory(Context context, Dataset dataset,
             Roi roi, List<Integer> channelsUsed) {
@@ -70,6 +76,10 @@ public class KymographFactory {
         this.ID = IDcounter.incrementAndGet();
     }
 
+    public Dataset getKymograph() {
+        return this.kymograph;
+    }
+
     public void build() {
         // Build lines from the ROI
         LinesBuilder linesBuilder = new LinesBuilder(this.roi);
@@ -78,19 +88,36 @@ public class KymographFactory {
         log.info(linesBuilder.getLines().size() + " lines with a width of "
                 + linesBuilder.getlineWidth() + " will be used for the kymograph " + this.ID + ".");
 
+        List<Dataset> kymographs = new ArrayList<>();
+
         // Init kymo creator for each channels and build kymos
         for (Integer i : this.channelsUsed) {
+
+            log.info("Creating kymograph for the channel " + i + ".");
             KymographCreator creator = new KymographCreator(this.context, this.dataset,
                     i, linesBuilder);
+
             creator.build();
-            
-            ui.show(creator.getKymograph());
-            ui.show(creator.getProjectedKymograph());
+            kymographs.add(creator.getProjectedKymograph());
         }
-        
+
+        if (this.channelsUsed.size() == 1) {
+            this.kymograph = kymographs.get(0);
+        } else {
+            // TODO : Merge channels inside a single Dataset
+            this.kymograph = this.mergeDataset(kymographs);
+            ui.showDialog("For now only the first channel is displayed.\n"
+                    + "This soon will be fixed and display all the channels in composite mode.");
+        }
+
         // Put back the original Roi object 
         ImagePlus imp = convert.convert(this.dataset, ImagePlus.class);
         imp.setRoi(this.roi);
+    }
+
+    public Dataset mergeDataset(List<Dataset> kymographs) {
+        // TODO
+        return kymographs.get(0);
     }
 
 }
