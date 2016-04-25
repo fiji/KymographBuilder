@@ -18,6 +18,8 @@
 
 For now and before I found a better way you can download the plugin there : https://github.com/hadim/KymographBuilder/releases.
 
+Run the plugin with `Plugins ► Kymograph ► KymographBuilder`.
+
 ## Authors
 
 `KymographBuilder` has been created by [Hadrien Mary](mailto:hadrien.mary@gmail.com).
