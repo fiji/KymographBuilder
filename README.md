@@ -35,4 +35,4 @@ If you use this plugin for your research, don't forget to cite it : [![DOI](http
 
 ## License
 
-MIT. See [LICENSE](LICENSE)
+MIT. See [LICENSE.txt](LICENSE.txt)
