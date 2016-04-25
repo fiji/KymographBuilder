@@ -54,65 +54,66 @@
 	</developers>
 	<contributors>
 		<!--
-			NB: Need a least one element to override the parent.
-			See: https://issues.apache.org/jira/browse/MNG-5220
-			-->
-			<contributor><name>None</name></contributor>
-		</contributors>
+		NB: Need a least one element to override the parent.
+		See: https://issues.apache.org/jira/browse/MNG-5220
+		-->
+		<contributor><name>None</name></contributor>
+	</contributors>
 
-		<scm>
-			<connection>scm:git:git://github.com/fiji/KymographBuilder</connection>
-			<developerConnection>scm:git:git@github.com:fiji/KymographBuilder</developerConnection>
-			<tag>HEAD</tag>
-			<url>https://github.com/fiji/KymographBuilder</url>
-		</scm>
-		<issueManagement>
-			<system>GitHub Issues</system>
-			<url>https://github.com/fiji/KymographBuilder/issues</url>
-		</issueManagement>
-		<ciManagement>
-			<system>Jenkins</system>
-			<url>http://jenkins.imagej.net/job/KymographBuilder/</url>
-		</ciManagement>
+	<scm>
+		<connection>scm:git:git://github.com/fiji/KymographBuilder</connection>
+		<developerConnection>scm:git:git@github.com:fiji/KymographBuilder</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/fiji/KymographBuilder</url>
+	</scm>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/fiji/KymographBuilder/issues</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://jenkins.imagej.net/job/KymographBuilder/</url>
+	</ciManagement>
 
-		<repositories>
-			<repository>
-				<id>imagej.public</id>
-				<url>http://maven.imagej.net/content/groups/public</url>
-			</repository>
-		</repositories>
+	<repositories>
+		<repository>
+			<id>imagej.public</id>
+			<url>http://maven.imagej.net/content/groups/public</url>
+		</repository>
+	</repositories>
 
-		<dependencies>
+	<dependencies>
 
-			<!--ImageJ-->
-			<dependency>
-				<groupId>net.imagej</groupId>
-				<artifactId>imagej</artifactId>
-			</dependency>
+		<!--ImageJ-->
+		<dependency>
+			<groupId>net.imagej</groupId>
+			<artifactId>imagej</artifactId>
+		</dependency>
 
-			<!--IJ1 dependencies-->
-			<dependency>
-				<groupId>net.imagej</groupId>
-				<artifactId>ij</artifactId>
-			</dependency>
-			<dependency>
-				<groupId>net.imagej</groupId>
-				<artifactId>ij1-patcher</artifactId>
-			</dependency>
+		<!--IJ1 dependencies-->
+		<dependency>
+			<groupId>net.imagej</groupId>
+			<artifactId>ij</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.imagej</groupId>
+			<artifactId>ij1-patcher</artifactId>
+		</dependency>
 
-			<!-- Enable IJ1 interface at runtime -->
-			<dependency>
-				<groupId>net.imagej</groupId>
-				<artifactId>imagej-legacy</artifactId>
-				<scope>runtime</scope>
-			</dependency>
+		<!-- Enable IJ1 interface at runtime -->
+		<dependency>
+			<groupId>net.imagej</groupId>
+			<artifactId>imagej-legacy</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
-			<!-- Unit test library -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<scope>test</scope>
-			</dependency>
+		<!-- Unit test library -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-		</dependencies>
-	</project>
+	</dependencies>
+
+</project>
