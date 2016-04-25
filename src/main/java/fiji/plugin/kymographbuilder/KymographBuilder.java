@@ -62,7 +62,7 @@ public class KymographBuilder implements Command {
     private Dataset dataset;
 
     @Parameter(type = ItemIO.OUTPUT)
-    private Dataset kymograph;
+    private List<Dataset> kymographs;
 
     @Parameter(label = "Channel Index",
             description = "Channel index used to build the kymograph."
@@ -86,6 +86,7 @@ public class KymographBuilder implements Command {
 
         log.info("Running " + PLUGIN_NAME + " version " + VERSION);
 
+        // TODO: get all ROIs
         Roi roi = Utils.checkForROIs(dataset, ij.convert(), ij.ui());
         if (roi == null) {
             // Close the plugin
@@ -112,18 +113,9 @@ public class KymographBuilder implements Command {
         }
         log.info("The following channels will be used : " + channelsUsed);
 
-        // Build lines from the ROI
-        LinesBuilder linesBuilder = new LinesBuilder(roi);
-        linesBuilder.build();
-
-        log.info(linesBuilder.getLines().size() + " lines with a width of "
-                + linesBuilder.getlineWidth() + " will be used for the kymograph.");
-
-        // Init kymo creator for each channels and build kymos
-        for (Integer i : channelsUsed) {
-            KymographCreator creator = new KymographCreator(ij.context(), i, linesBuilder);
-            creator.build();
-        }
+        // TODO : Loop over all ROIs
+        KymographFactory factory = new KymographFactory(ij.context(), roi, channelsUsed);
+        factory.build();
 
     }
 
