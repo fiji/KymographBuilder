@@ -39,6 +39,9 @@ public class LinesBuilder {
 
     List<Segment> lines;
     private int lineWidth;
+    private List<Integer> linesLength;
+    private List<double[]> linesVectorScaled;
+    private int totalLength;
 
     public LinesBuilder(Roi roi) {
         this.roi = roi;
@@ -46,6 +49,18 @@ public class LinesBuilder {
 
     public List<Segment> getLines() {
         return this.lines;
+    }
+
+    public List<Integer> getLinesLength() {
+        return this.linesLength;
+    }
+
+    public List<double[]> getLinesVectorScaled() {
+        return this.linesVectorScaled;
+    }
+
+    public int getTotalLength() {
+        return this.totalLength;
     }
 
     public int getlineWidth() {
@@ -89,5 +104,19 @@ public class LinesBuilder {
     }
 
     private void buildVector() {
+
+        this.linesLength = new ArrayList<>();
+        this.linesVectorScaled = new ArrayList<>();
+
+        totalLength = 0;
+        int length;
+
+        for (Segment line : this.lines) {
+            length = (int) Math.round(line.getLength());
+            this.linesLength.add(length);
+            this.linesVectorScaled.add(line.getScaledVector());
+            totalLength += length;
+        }
+
     }
 }

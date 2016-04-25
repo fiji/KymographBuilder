@@ -23,13 +23,16 @@
  */
 package fiji.plugin.kymographbuilder;
 
+import ij.ImagePlus;
 import ij.gui.Roi;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import net.imagej.Dataset;
-import net.imagej.ImageJ;
 import org.scijava.Context;
+import org.scijava.convert.ConvertService;
 import org.scijava.log.LogService;
 import org.scijava.plugin.Parameter;
+import org.scijava.ui.UIService;
 
 /**
  *
@@ -37,22 +40,34 @@ import org.scijava.plugin.Parameter;
  */
 public class KymographFactory {
 
-    @Parameter
-    private ImageJ ij;
-    
-    @Parameter
-    private LogService log;
+    public static AtomicInteger IDcounter = new AtomicInteger(-1);
+    private final int ID;
 
     @Parameter
+    private Context context;
+
+    @Parameter
+    private LogService log;
+    
+    @Parameter
+    private ConvertService convert;
+    
+    @Parameter
+    private UIService ui;
+
     private Dataset dataset;
 
     private Roi roi;
     private List<Integer> channelsUsed;
 
-    public KymographFactory(Context context, Roi roi, List<Integer> channelsUsed) {
+    public KymographFactory(Context context, Dataset dataset,
+            Roi roi, List<Integer> channelsUsed) {
         context.inject(this);
         this.channelsUsed = channelsUsed;
         this.roi = roi;
+        this.dataset = dataset;
+
+        this.ID = IDcounter.incrementAndGet();
     }
 
     public void build() {
@@ -61,13 +76,21 @@ public class KymographFactory {
         linesBuilder.build();
 
         log.info(linesBuilder.getLines().size() + " lines with a width of "
-                + linesBuilder.getlineWidth() + " will be used for the kymograph.");
+                + linesBuilder.getlineWidth() + " will be used for the kymograph " + this.ID + ".");
 
         // Init kymo creator for each channels and build kymos
-        for (Integer i : channelsUsed) {
-            KymographCreator creator = new KymographCreator(ij.context(), i, linesBuilder);
+        for (Integer i : this.channelsUsed) {
+            KymographCreator creator = new KymographCreator(this.context, this.dataset,
+                    i, linesBuilder);
             creator.build();
+            
+            ui.show(creator.getKymograph());
+            ui.show(creator.getProjectedKymograph());
         }
+        
+        // Put back the original Roi object 
+        ImagePlus imp = convert.convert(this.dataset, ImagePlus.class);
+        imp.setRoi(this.roi);
     }
 
 }

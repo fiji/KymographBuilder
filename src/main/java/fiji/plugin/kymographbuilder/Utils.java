@@ -24,12 +24,8 @@
 package fiji.plugin.kymographbuilder;
 
 import ij.ImagePlus;
-import ij.gui.Line;
-import ij.gui.PolygonRoi;
 import ij.gui.Roi;
 import ij.plugin.frame.RoiManager;
-import java.util.ArrayList;
-import java.util.List;
 import net.imagej.Dataset;
 import net.imagej.ImageJ;
 import net.imagej.axis.Axes;

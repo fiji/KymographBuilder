@@ -114,7 +114,7 @@ public class KymographBuilder implements Command {
         log.info("The following channels will be used : " + channelsUsed);
 
         // TODO : Loop over all ROIs
-        KymographFactory factory = new KymographFactory(ij.context(), roi, channelsUsed);
+        KymographFactory factory = new KymographFactory(ij.context(), dataset, roi, channelsUsed);
         factory.build();
 
     }
@@ -148,7 +148,7 @@ public class KymographBuilder implements Command {
         // Add rois
         RoiManager rm = RoiManager.getRoiManager();
         rm.runCommand("Open", KymographBuilder.class
-                .getResource("/testdata/mt2.roi").getPath());
+                .getResource("/testdata/mt.roi").getPath());
         rm.runCommand("Show All");
 
         ij.log().info("Load ROIs data.");
