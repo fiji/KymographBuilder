@@ -1,95 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>sc.fiji</groupId>
+		<artifactId>pom-fiji</artifactId>
+		<version>22.2.0</version>
+		<relativePath />
+	</parent>
 
-    <parent>
-        <groupId>sc.fiji</groupId>
-        <artifactId>pom-fiji</artifactId>
-        <version>22.2.0</version>
-        <relativePath />
-    </parent>
+	<artifactId>KymographBuilder</artifactId>
+	<version>1.1.2-SNAPSHOT</version>
 
-    <groupId>sc.fiji</groupId>
-    <artifactId>KymographBuilder</artifactId>
-    <version>1.1.2-SNAPSHOT</version>
+	<name>KymographBuilder</name>
+	<description />
+	<url>http://imagej.net/KymographBuilder</url>
+	<inceptionYear>2016</inceptionYear>
 
-    <name>KymographBuilder</name>
-    <description />
+	<developers>
+		<developer>
+			<id>hadim</id>
+			<name>Hadrien Mary</name>
+			<email>hadrien.mary@gmail.com</email>
+			<roles>
+				<role>founder</role>
+				<role>lead</role>
+				<role>developer</role>
+				<role>debugger</role>
+				<role>reviewer</role>
+				<role>support</role>
+				<role>maintainer</role>
+			</roles>
+			<timezone>-5</timezone>
+		</developer>
+	</developers>
+	<contributors>
+		<!--
+			NB: Need a least one element to override the parent.
+			See: https://issues.apache.org/jira/browse/MNG-5220
+			-->
+			<contributor><name>None</name></contributor>
+		</contributors>
 
-    <dependencies>
+		<scm>
+			<connection>scm:git:git://github.com/hadim/KymographBuilder</connection>
+			<developerConnection>scm:git:git@github.com:hadim/KymographBuilder</developerConnection>
+			<tag>HEAD</tag>
+			<url>https://github.com/hadim/KymographBuilder</url>
+		</scm>
+		<issueManagement>
+			<system>GitHub Issues</system>
+			<url>https://github.com/hadim/KymographBuilder/issues</url>
+		</issueManagement>
 
-        <!--ImageJ-->
-        <dependency>
-            <groupId>net.imagej</groupId>
-            <artifactId>imagej</artifactId>
-        </dependency>
+		<repositories>
+			<repository>
+				<id>imagej.public</id>
+				<url>http://maven.imagej.net/content/groups/public</url>
+			</repository>
+		</repositories>
 
-        <!--IJ1 dependencies-->
-        <dependency>
-            <groupId>net.imagej</groupId>
-            <artifactId>ij</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.imagej</groupId>
-            <artifactId>ij1-patcher</artifactId>
-        </dependency>
+		<dependencies>
 
-        <!-- Enable IJ1 interface at runtime -->
-        <dependency>
-            <groupId>net.imagej</groupId>
-            <artifactId>imagej-legacy</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+			<!--ImageJ-->
+			<dependency>
+				<groupId>net.imagej</groupId>
+				<artifactId>imagej</artifactId>
+			</dependency>
 
-        <!-- Unit test library -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
+			<!--IJ1 dependencies-->
+			<dependency>
+				<groupId>net.imagej</groupId>
+				<artifactId>ij</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>net.imagej</groupId>
+				<artifactId>ij1-patcher</artifactId>
+			</dependency>
 
-    </dependencies>
+			<!-- Enable IJ1 interface at runtime -->
+			<dependency>
+				<groupId>net.imagej</groupId>
+				<artifactId>imagej-legacy</artifactId>
+				<scope>runtime</scope>
+			</dependency>
 
-    <developers>
-        <developer>
-            <id>hadim</id>
-            <name>Hadrien Mary</name>
-            <email>hadrien.mary@gmail.com</email>
-            <roles>
-                <role>founder</role>
-                <role>lead</role>
-                <role>developer</role>
-                <role>debugger</role>
-                <role>reviewer</role>
-                <role>support</role>
-                <role>maintainer</role>
-            </roles>
-            <timezone>-5</timezone>
-        </developer>
-    </developers>
+			<!-- Unit test library -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<scope>test</scope>
+			</dependency>
 
-    <contributors>
-    </contributors>
-
-    <scm>
-        <connection>scm:git:git://github.com/hadim/KymographBuilder</connection>
-        <developerConnection>scm:git:git@github.com:hadim/KymographBuilder</developerConnection>
-        <tag>HEAD</tag>
-        <url>https://github.com/hadim/KymographBuilder</url>
-    </scm>
-    <issueManagement>
-        <system>GitHub Issues</system>
-        <url>https://github.com/hadim/KymographBuilder/issues</url>
-    </issueManagement>
-
-    <repositories>
-        <repository>
-            <id>imagej.public</id>
-            <url>http://maven.imagej.net/content/groups/public</url>
-        </repository>
-    </repositories>
-
-</project>
+		</dependencies>
+	</project>
