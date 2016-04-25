@@ -8,6 +8,8 @@ import io.scif.services.DatasetIOService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static java.util.stream.Collectors.toList;
 import java.util.stream.IntStream;
 
@@ -110,10 +112,20 @@ public class KymographBuilder implements Command {
             channelsUsed.add(channelToUse);
         }
         log.info("The following channels will be used : " + channelsUsed);
-
+        
+        log.info(roi.getTypeAsString());
+        
+        // Build lines from the ROI
+        List<Segment> lines = Utils.buildLines(roi);
+        int lineWidth = Math.round(roi.getStrokeWidth());
+        lineWidth = lineWidth < 1 ? 1 : lineWidth;
+        log.info(lines.size() + " lines with a width of " + lineWidth
+                + " will be used for the kymograph.");
+        log.info(lines);
+        
         // Init kymo creator for each channels and build kymos
         for (Integer i : channelsUsed) {
-            KymographCreator creator = new KymographCreator(ij.context(), i);
+            KymographCreator creator = new KymographCreator(ij.context(), i, lines, lineWidth);
             creator.build();
         }
 

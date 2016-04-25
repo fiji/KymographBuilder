@@ -23,6 +23,10 @@
  */
 package fiji.plugin.kymographbuilder;
 
+import ij.gui.Line;
+import ij.gui.Roi;
+import java.util.ArrayList;
+import java.util.List;
 import net.imagej.Dataset;
 import org.scijava.Context;
 import org.scijava.log.LogService;
@@ -43,14 +47,23 @@ public class KymographCreator {
 
     private Dataset kymograph;
     private int channel;
+    private Roi roi;
 
-    public KymographCreator(Context context, int channel) {
+    private List<Segment> lines;
+    private int lineWidth;
+
+    public KymographCreator(Context context, int channel,
+            List<Segment> lines, int lineWidth) {
         context.inject(this);
         this.channel = channel;
+        this.roi = roi;
+        this.lines = lines;
+        this.lineWidth = lineWidth;
     }
-    
-    public void build(){
-        
+
+    public void build() {
     }
+
+
 
 }

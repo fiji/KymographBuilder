@@ -24,8 +24,12 @@
 package fiji.plugin.kymographbuilder;
 
 import ij.ImagePlus;
+import ij.gui.Line;
+import ij.gui.PolygonRoi;
 import ij.gui.Roi;
 import ij.plugin.frame.RoiManager;
+import java.util.ArrayList;
+import java.util.List;
 import net.imagej.Dataset;
 import net.imagej.ImageJ;
 import net.imagej.axis.Axes;
@@ -161,6 +165,35 @@ public class Utils {
         }
 
         return roi;
+    }
+
+    static List<Segment> buildLines(Roi roi) {
+
+        List<Segment> lines = new ArrayList<>();
+
+        if (roi.getTypeAsString().equals("Straight Line")) {
+            Line lineRoi = (Line) roi;
+            Segment line = new Segment(lineRoi.x1, lineRoi.y1, lineRoi.x2, lineRoi.y2);
+            lines.add(line);
+            
+        } else {
+            PolygonRoi roiPoly = (PolygonRoi) roi;
+
+            int xStart;
+            int yStart;
+            int xEnd;
+            int yEnd;
+
+            for (int i = 0; i < roi.getPolygon().npoints - 1; i++) {
+                xStart = roi.getPolygon().xpoints[i];
+                yStart = roi.getPolygon().ypoints[i];
+                xEnd = roi.getPolygon().xpoints[i + 1];
+                yEnd = roi.getPolygon().ypoints[i + 1];
+                Segment line = new Segment(xStart, yStart, xEnd, yEnd);
+                lines.add(line);
+            }
+        }
+        return lines;
     }
 
 }
