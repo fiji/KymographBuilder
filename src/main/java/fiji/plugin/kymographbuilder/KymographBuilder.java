@@ -91,7 +91,6 @@ public class KymographBuilder implements Command {
             // Close the plugin
             return;
         }
-        log.info(roi);
 
         // Check if T and Z need to be swapped.
         Utils.swapTimeAndZDimensions(ij, dataset);
@@ -112,20 +111,17 @@ public class KymographBuilder implements Command {
             channelsUsed.add(channelToUse);
         }
         log.info("The following channels will be used : " + channelsUsed);
-        
-        log.info(roi.getTypeAsString());
-        
+
         // Build lines from the ROI
-        List<Segment> lines = Utils.buildLines(roi);
-        int lineWidth = Math.round(roi.getStrokeWidth());
-        lineWidth = lineWidth < 1 ? 1 : lineWidth;
-        log.info(lines.size() + " lines with a width of " + lineWidth
-                + " will be used for the kymograph.");
-        log.info(lines);
-        
+        LinesBuilder linesBuilder = new LinesBuilder(roi);
+        linesBuilder.build();
+
+        log.info(linesBuilder.getLines().size() + " lines with a width of "
+                + linesBuilder.getlineWidth() + " will be used for the kymograph.");
+
         // Init kymo creator for each channels and build kymos
         for (Integer i : channelsUsed) {
-            KymographCreator creator = new KymographCreator(ij.context(), i, lines, lineWidth);
+            KymographCreator creator = new KymographCreator(ij.context(), i, linesBuilder);
             creator.build();
         }
 
@@ -160,7 +156,7 @@ public class KymographBuilder implements Command {
         // Add rois
         RoiManager rm = RoiManager.getRoiManager();
         rm.runCommand("Open", KymographBuilder.class
-                .getResource("/testdata/mt.roi").getPath());
+                .getResource("/testdata/mt2.roi").getPath());
         rm.runCommand("Show All");
 
         ij.log().info("Load ROIs data.");

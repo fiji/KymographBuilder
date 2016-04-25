@@ -23,46 +23,33 @@
  */
 package fiji.plugin.kymographbuilder;
 
-import ij.gui.Line;
-import ij.gui.Roi;
-import java.util.ArrayList;
-import java.util.List;
-import net.imagej.Dataset;
-import org.scijava.Context;
-import org.scijava.log.LogService;
-import org.scijava.plugin.Parameter;
-
 /**
- * The main class that actually build the kymograph for one channel.
+ * Simple Line class. I called it Segment instead of Line to avoid name conflict.
  *
  * @author Hadrien Mary <hadrien.mary@gmail.com>
  */
-public class KymographCreator {
+class Segment {
 
-    @Parameter
-    private LogService log;
+    private int xStart;
+    private int yStart;
+    private int xEnd;
+    private int yEnd;
 
-    @Parameter
-    private Dataset dataset;
-
-    private Dataset kymograph;
-    private int channel;
-    private Roi roi;
-
-    private LinesBuilder linesBuilder;
-
-    private List<Integer> linesLength;
-    private List<double[]> linesVectorScaled;
-
-    public KymographCreator(Context context, int channel, LinesBuilder linesBuilder) {
-        context.inject(this);
-        this.channel = channel;
-        this.roi = roi;
-        this.linesBuilder = linesBuilder;
+    public Segment(int xStart, int yStart, int xEnd, int yEnd) {
+        this.xStart = xStart;
+        this.yStart = yStart;
+        this.xEnd = xEnd;
+        this.yEnd = yEnd;
     }
-
-    public void build() {
-        log.info(this.linesBuilder.getLines());
+    
+    @Override
+    public String toString(){
+        String s = new String();
+        s += "xStart : " + this.xStart + " | ";
+        s += "yStart : " + this.yStart + " | ";
+        s += "xEnd : " + this.xEnd + " | ";
+        s += "yEnd: " + this.yEnd;
+        return s;
     }
 
 }
