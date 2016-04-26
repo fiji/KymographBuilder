@@ -23,7 +23,6 @@
  * THE SOFTWARE.
  * #L%
  */
-
 package fiji.plugin.kymographbuilder;
 
 import ij.IJ;
@@ -34,6 +33,12 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import net.imagej.Dataset;
 import net.imagej.DatasetService;
+import net.imagej.ImgPlus;
+import net.imagej.axis.Axes;
+import net.imagej.axis.CalibratedAxis;
+import net.imglib2.RandomAccessibleInterval;
+import net.imglib2.type.numeric.RealType;
+import net.imglib2.view.Views;
 import org.scijava.Context;
 import org.scijava.convert.ConvertService;
 import org.scijava.log.LogService;
@@ -108,10 +113,7 @@ public class KymographFactory {
         if (this.channelsUsed.size() == 1) {
             this.kymograph = kymographs.get(0);
         } else {
-            // TODO : Merge channels inside a single Dataset
-            this.kymograph = this.mergeDataset(kymographs);
-            ui.showDialog("For now only the first channel is displayed.\n"
-                    + "This soon will be fixed and display all the channels in composite mode.");
+            this.mergeDataset(kymographs);
         }
 
         // Put back the original Roi object 
@@ -119,9 +121,25 @@ public class KymographFactory {
         imp.setRoi(this.roi);
     }
 
-    public Dataset mergeDataset(List<Dataset> kymographs) {
-        // TODO
-        return kymographs.get(0);
+    public <T extends RealType<T>> void mergeDataset(List<Dataset> kymographs) {
+
+        log.info("Merging kymographs for all channels now.");
+        
+        List<RandomAccessibleInterval<T>> accessibles = new ArrayList();
+        kymographs.stream().forEach((kymo) -> {
+            accessibles.add((RandomAccessibleInterval<T>) kymo);
+        });
+
+        // Stack a list of RandomAccessibleInterval
+        RandomAccessibleInterval<T> re = Views.stack(accessibles);
+
+        // Create the merged kymograph
+        this.kymograph = dsService.create(re);
+        this.kymograph.setName(kymographs.get(0).getName());
+        
+        // Make the third axis (index = 2) to CHANNEL type.
+        // I don't what control exactly the AxisType used in Views.stack
+        this.kymograph.axis(2).setType(Axes.CHANNEL);
     }
 
 }
