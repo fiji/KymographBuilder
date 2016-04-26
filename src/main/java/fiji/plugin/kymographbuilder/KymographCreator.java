@@ -166,6 +166,7 @@ public class KymographCreator {
             new_xEnd = (int) (line.xEnd + n * dy);
             new_yEnd = (int) (line.yEnd - n * dx);
 
+            // TODO : Remove the use of ij.gui.Line
             currentLine = new Line(new_xStart, new_yStart, new_xEnd, new_yEnd);
             currentLine.setStrokeWidth(1);
             imp.setRoi(currentLine);
