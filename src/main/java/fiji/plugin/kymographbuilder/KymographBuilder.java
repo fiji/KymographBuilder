@@ -37,7 +37,6 @@ import net.imagej.axis.Axes;
 import net.imagej.display.ImageDisplay;
 import net.imagej.display.ImageDisplayService;
 import net.imagej.display.OverlayService;
-import net.imagej.overlay.Overlay;
 import net.imagej.patcher.LegacyInjector;
 
 import org.scijava.ItemIO;
@@ -80,17 +79,11 @@ public class KymographBuilder implements Command {
 
     @Parameter(type = ItemIO.INPUT)
     private ImageDisplay imgDisplay;
-    
-//    @Parameter(type = ItemIO.INPUT)
-//    private Overlay overlay;
 
     @Parameter(type = ItemIO.OUTPUT)
     private Dataset kymograph;
 
-//    @Parameter(label = "Channel Index",
-//            description = "Channel index used to build the kymograph."
-//            + "Use a value of -1 to use all channels.",
-//            min = "-1")
+    // Which channel is used to build the kymograph. -1 for building on all channels.
     private int channelToUse = -1;
 
     public static final String PLUGIN_NAME = "KymographBuilder";
