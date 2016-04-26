@@ -26,6 +26,7 @@
 
 package fiji.plugin.kymographbuilder;
 
+import ij.IJ;
 import ij.ImagePlus;
 import ij.gui.Roi;
 import ij.plugin.frame.RoiManager;
@@ -144,7 +145,7 @@ public class Utils {
     }
 
     static Roi checkForROIs(Dataset dataset, ConvertService convert, UIService ui) {
-        ImagePlus imp = convert.convert(dataset, ImagePlus.class);
+        ImagePlus imp = IJ.getImage();
         Roi roi = imp.getRoi();
 
         if (roi == null) {

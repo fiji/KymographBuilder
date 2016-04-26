@@ -26,6 +26,7 @@
 
 package fiji.plugin.kymographbuilder;
 
+import ij.IJ;
 import ij.ImagePlus;
 import ij.gui.Roi;
 import java.util.ArrayList;
@@ -114,7 +115,7 @@ public class KymographFactory {
         }
 
         // Put back the original Roi object 
-        ImagePlus imp = convert.convert(this.dataset, ImagePlus.class);
+        ImagePlus imp = IJ.getImage();
         imp.setRoi(this.roi);
     }
 

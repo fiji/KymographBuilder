@@ -28,15 +28,16 @@ package fiji.plugin.kymographbuilder;
 
 import ij.gui.Roi;
 import io.scif.services.DatasetIOService;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import net.imagej.Dataset;
 import net.imagej.ImageJ;
 import net.imagej.axis.Axes;
+import net.imagej.display.ImageDisplay;
 import net.imagej.display.ImageDisplayService;
 import net.imagej.display.OverlayService;
+import net.imagej.overlay.Overlay;
 import net.imagej.patcher.LegacyInjector;
 
 import org.scijava.ItemIO;
@@ -78,7 +79,10 @@ public class KymographBuilder implements Command {
     private OverlayService overlayService;
 
     @Parameter(type = ItemIO.INPUT)
-    private Dataset dataset;
+    private ImageDisplay imgDisplay;
+    
+//    @Parameter(type = ItemIO.INPUT)
+//    private Overlay overlay;
 
     @Parameter(type = ItemIO.OUTPUT)
     private Dataset kymograph;
@@ -106,6 +110,8 @@ public class KymographBuilder implements Command {
 
         log.info("Running " + PLUGIN_NAME + " version " + VERSION);
 
+        Dataset dataset = (Dataset) imgDisplay.getActiveView().getData();
+        
         Roi roi = Utils.checkForROIs(dataset, ij.convert(), ij.ui());
         if (roi == null) {
             // Close the plugin
@@ -114,7 +120,7 @@ public class KymographBuilder implements Command {
 
         // Check if T and Z need to be swapped.
         Utils.swapTimeAndZDimensions(ij, dataset);
-
+        
         // Print some infos
         log.info(Utils.getInfo(dataset, "\t"));
 
