@@ -33,6 +33,7 @@ import ij.plugin.frame.RoiManager;
 import net.imagej.Dataset;
 import net.imagej.ImageJ;
 import net.imagej.axis.Axes;
+import net.imagej.display.ImageDisplay;
 import org.scijava.convert.ConvertService;
 import org.scijava.ui.DialogPrompt.MessageType;
 import org.scijava.ui.DialogPrompt.OptionType;
@@ -144,7 +145,9 @@ public class Utils {
 
     }
 
-    static Roi checkForROIs(Dataset dataset, ConvertService convert, UIService ui) {
+    static Roi checkForROIs(ImageDisplay imageDisplay, ConvertService convert, UIService ui) {
+        // TODO : imageDisplay should be used here
+        
         ImagePlus imp = IJ.getImage();
         Roi roi = imp.getRoi();
 

@@ -37,6 +37,7 @@ import net.imagej.axis.Axes;
 import net.imagej.display.ImageDisplay;
 import net.imagej.display.ImageDisplayService;
 import net.imagej.display.OverlayService;
+import net.imagej.overlay.Overlay;
 import net.imagej.patcher.LegacyInjector;
 
 import org.scijava.ItemIO;
@@ -78,7 +79,7 @@ public class KymographBuilder implements Command {
     private OverlayService overlayService;
 
     @Parameter(type = ItemIO.INPUT)
-    private ImageDisplay imgDisplay;
+    private ImageDisplay imageDisplay;
 
     @Parameter(type = ItemIO.OUTPUT)
     private Dataset kymograph;
@@ -103,14 +104,14 @@ public class KymographBuilder implements Command {
 
         log.info("Running " + PLUGIN_NAME + " version " + VERSION);
 
-        Dataset dataset = (Dataset) imgDisplay.getActiveView().getData();
+        Dataset dataset = (Dataset) imageDisplay.getActiveView().getData();
         
-        Roi roi = Utils.checkForROIs(dataset, ij.convert(), ij.ui());
+        Roi roi = Utils.checkForROIs(imageDisplay, ij.convert(), ij.ui());
         if (roi == null) {
             // Close the plugin
             return;
         }
-
+                
         // Check if T and Z need to be swapped.
         Utils.swapTimeAndZDimensions(ij, dataset);
         
