@@ -37,7 +37,6 @@ import net.imagej.axis.Axes;
 import net.imagej.display.ImageDisplay;
 import net.imagej.display.ImageDisplayService;
 import net.imagej.display.OverlayService;
-import net.imagej.overlay.Overlay;
 import net.imagej.patcher.LegacyInjector;
 
 import org.scijava.ItemIO;
