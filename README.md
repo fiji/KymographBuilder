@@ -13,15 +13,15 @@ See the ImageJ wiki related page : http://imagej.net/KymographBuilder_:_Yet_Anot
 - Take into account the width of the line using maximum projection along its thickness.
 - Built from scratch and use the [Imagej2 Ecosystem](http://imagej.net/ImageJ2).
 - Fast and easy to use :
-    - Draw a line
+    - Draw a line (or a polyline)
     - Launch `KymographBuilder`
     - You're done.
 
 ## Install
 
-For now and before I found a better way you can download the plugin there : https://github.com/fiji/KymographBuilder/releases.
+`KymographBuilder` is an official Fiji plugin meaning that it ships with your Fiji installation.
 
-Run the plugin with `Plugins ► Kymograph ► KymographBuilder`.
+You can run the plugin with `Plugins ► Kymograph ► KymographBuilder`.
 
 ## Authors
 
