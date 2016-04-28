@@ -138,7 +138,6 @@
         <dependency>
             <groupId>net.imagej</groupId>
             <artifactId>imagej-legacy</artifactId>
-            <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
 

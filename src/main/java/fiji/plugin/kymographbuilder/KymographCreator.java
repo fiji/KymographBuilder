@@ -23,7 +23,6 @@
  * THE SOFTWARE.
  * #L%
  */
-
 package fiji.plugin.kymographbuilder;
 
 import ij.ImagePlus;
@@ -70,13 +69,16 @@ public class KymographCreator {
     private RandomAccess datasetCursor;
     private RandomAccess kymographCursor;
 
+    private int zPosition;
+
     public KymographCreator(Context context, Dataset dataset,
-            int channel, LinesBuilder linesBuilder) {
+            int channel, LinesBuilder linesBuilder, int zPosition) {
 
         context.inject(this);
         this.channel = channel;
         this.linesBuilder = linesBuilder;
         this.dataset = dataset;
+        this.zPosition = zPosition;
     }
 
     public Dataset getKymograph() {
@@ -186,12 +188,19 @@ public class KymographCreator {
                     // Check we are inside the image
                     if ((x > 0) && (x < xDimension) && (y > 0) && (y < yDimension)) {
 
-                        // TODO : Build position according to dataset dimension indexes
-                        if (channelDimension >= 2) {
-                            this.datasetCursor.setPosition(new int[]{x, y, this.channel, t});
-                        } else {
-                            this.datasetCursor.setPosition(new int[]{x, y, t});
+                        this.datasetCursor.setPosition(x, this.dataset.dimensionIndex(Axes.X));
+                        this.datasetCursor.setPosition(y, this.dataset.dimensionIndex(Axes.Y));
+                        this.datasetCursor.setPosition(t, this.dataset.dimensionIndex(Axes.TIME));
+                        
+                        if (this.dataset.dimensionIndex(Axes.Z) != -1) {
+                            this.datasetCursor.setPosition(this.zPosition,
+                                    this.dataset.dimensionIndex(Axes.Z));
                         }
+                        if (this.dataset.dimensionIndex(Axes.CHANNEL) != -1) {
+                            this.datasetCursor.setPosition(this.channel,
+                                    this.dataset.dimensionIndex(Axes.CHANNEL));
+                        }
+                        
                         this.kymographCursor.setPosition(new int[]{t, offset + j, i});
                         final T pixel = (T) this.kymographCursor.get();
                         pixel.set((T) this.datasetCursor.get());

@@ -37,6 +37,7 @@ import net.imagej.axis.Axes;
 import net.imagej.display.ImageDisplay;
 import net.imagej.display.ImageDisplayService;
 import net.imagej.display.OverlayService;
+import net.imagej.legacy.LegacyService;
 import net.imagej.patcher.LegacyInjector;
 
 import org.scijava.ItemIO;
@@ -67,6 +68,9 @@ public class KymographBuilder implements Command {
 
     @Parameter
     private DatasetIOService datasetIOService;
+    
+    @Parameter
+    private LegacyService legacyService;
 
     @Parameter
     private UIService ui;
@@ -133,7 +137,7 @@ public class KymographBuilder implements Command {
 
         KymographFactory factory = new KymographFactory(ij.context(), dataset, roi, channelsUsed);
         factory.build();
-
+        
         // Get the results, add to command output.
         this.kymograph = factory.getKymograph();
 

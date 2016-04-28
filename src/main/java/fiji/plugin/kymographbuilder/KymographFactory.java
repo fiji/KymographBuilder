@@ -88,6 +88,11 @@ public class KymographFactory {
     }
 
     public void build() {
+        
+        // Find which Z stack is currently set (the kymograph will be build along this position.
+        // TODO : do it the IJ2 way (imageDisplay.getPosition(Axes.Z) does not work).
+        int zPosition = IJ.getImage().getZ();
+        
         // Build lines from the ROI
         LinesBuilder linesBuilder = new LinesBuilder(this.roi);
         linesBuilder.build();
@@ -102,7 +107,7 @@ public class KymographFactory {
 
             log.info("Creating kymograph for the channel " + i + ".");
             KymographCreator creator = new KymographCreator(this.context, this.dataset,
-                    i, linesBuilder);
+                    i, linesBuilder, zPosition);
 
             creator.build();
             kymographs.add(creator.getProjectedKymograph());
