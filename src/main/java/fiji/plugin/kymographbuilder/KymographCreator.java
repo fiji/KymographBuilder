@@ -92,7 +92,7 @@ public class KymographCreator {
         this.projectKymograph();
     }
 
-    public void buildKymograph() {
+    private void buildKymograph() {
 
         // Create kymograph dataset
         // A 3D dataset because it contains one kymograph by "width" unit
