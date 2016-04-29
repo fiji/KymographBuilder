@@ -26,17 +26,10 @@
 package fiji.plugin.kymographbuilder;
 
 import ij.IJ;
-import ij.ImagePlus;
 import ij.gui.Roi;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import net.imagej.Dataset;
 import net.imagej.DatasetService;
-import net.imagej.axis.Axes;
-import net.imglib2.RandomAccessibleInterval;
-import net.imglib2.type.numeric.RealType;
-import net.imglib2.view.Views;
 import org.scijava.Context;
 import org.scijava.convert.ConvertService;
 import org.scijava.log.LogService;

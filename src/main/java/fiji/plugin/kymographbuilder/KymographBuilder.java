@@ -27,12 +27,9 @@ package fiji.plugin.kymographbuilder;
 
 import ij.gui.Roi;
 import io.scif.services.DatasetIOService;
-import java.util.ArrayList;
-import java.util.List;
 
 import net.imagej.Dataset;
 import net.imagej.ImageJ;
-import net.imagej.axis.Axes;
 import net.imagej.display.ImageDisplay;
 import net.imagej.display.ImageDisplayService;
 import net.imagej.display.OverlayService;
