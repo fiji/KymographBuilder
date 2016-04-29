@@ -23,7 +23,6 @@
  * THE SOFTWARE.
  * #L%
  */
-
 package fiji.plugin.kymographbuilder;
 
 import ij.gui.Roi;
@@ -101,22 +100,22 @@ public class KymographBuilder implements Command {
         log.info("Running " + PLUGIN_NAME + " version " + VERSION);
 
         Dataset dataset = (Dataset) imageDisplay.getActiveView().getData();
-        
+
         Roi roi = Utils.checkForROIs(imageDisplay, ij.convert(), ij.ui());
         if (roi == null) {
             // Close the plugin
             return;
         }
-                
+
         // Check if T and Z need to be swapped.
         Utils.swapTimeAndZDimensions(ij, dataset);
-        
+
         // Print some infos
         log.info(Utils.getInfo(dataset, "\t"));
 
         KymographFactory factory = new KymographFactory(ij.context(), dataset, roi);
         factory.build();
-        
+
         // Get the results, add to command output.
         this.kymograph = factory.getKymograph();
 

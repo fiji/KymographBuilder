@@ -194,7 +194,7 @@ public class KymographCreator {
                             if (this.dataset.dimensionIndex(Axes.Z) != -1) {
                                 this.datasetCursor.setPosition(this.zPosition,
                                         this.dataset.dimensionIndex(Axes.Z));
-                            }                           
+                            }
                             if (this.dataset.dimensionIndex(Axes.CHANNEL) != -1) {
                                 this.datasetCursor.setPosition(channel,
                                         this.dataset.dimensionIndex(Axes.CHANNEL));
