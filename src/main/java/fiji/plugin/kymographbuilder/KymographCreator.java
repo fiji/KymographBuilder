@@ -63,7 +63,6 @@ public class KymographCreator {
     private Dataset kymograph;
     private Dataset projectedKymograph;
 
-    private final int channel;
     private final LinesBuilder linesBuilder;
 
     private RandomAccess datasetCursor;
@@ -72,10 +71,9 @@ public class KymographCreator {
     private int zPosition;
 
     public KymographCreator(Context context, Dataset dataset,
-            int channel, LinesBuilder linesBuilder, int zPosition) {
+            LinesBuilder linesBuilder, int zPosition) {
 
         context.inject(this);
-        this.channel = channel;
         this.linesBuilder = linesBuilder;
         this.dataset = dataset;
         this.zPosition = zPosition;
@@ -98,12 +96,13 @@ public class KymographCreator {
 
         // Create kymograph dataset
         // A 3D dataset because it contains one kymograph by "width" unit
-        long[] dimensions = new long[3];
+        long[] dimensions = new long[4];
         dimensions[0] = this.dataset.dimension(this.dataset.dimensionIndex(Axes.TIME));
         dimensions[1] = this.linesBuilder.getTotalLength() - this.linesBuilder.getLines().size() + 1;
         dimensions[2] = this.linesBuilder.getlineWidth();
+        dimensions[3] = this.dataset.dimension(this.dataset.dimensionIndex(Axes.CHANNEL));
 
-        AxisType[] axisTypes = {Axes.X, Axes.Y, Axes.Z};
+        AxisType[] axisTypes = {Axes.X, Axes.Y, Axes.Z, Axes.CHANNEL};
 
         String title = dataset.getName() + " (Kymograph)";
 
@@ -168,11 +167,8 @@ public class KymographCreator {
             new_xEnd = (int) (line.xEnd + n * dy);
             new_yEnd = (int) (line.yEnd - n * dx);
 
-            // TODO : Remove the use of ij.gui.Line
+            // TODO : Remove the use of ij.gui.Line()
             currentLine = new Line(new_xStart, new_yStart, new_xEnd, new_yEnd);
-            currentLine.setStrokeWidth(1);
-            imp.setRoi(currentLine);
-
             xpoints = currentLine.getInterpolatedPolygon().xpoints;
             ypoints = currentLine.getInterpolatedPolygon().ypoints;
             npoints = currentLine.getInterpolatedPolygon().npoints;
@@ -188,22 +184,26 @@ public class KymographCreator {
                     // Check we are inside the image
                     if ((x > 0) && (x < xDimension) && (y > 0) && (y < yDimension)) {
 
-                        this.datasetCursor.setPosition(x, this.dataset.dimensionIndex(Axes.X));
-                        this.datasetCursor.setPosition(y, this.dataset.dimensionIndex(Axes.Y));
-                        this.datasetCursor.setPosition(t, this.dataset.dimensionIndex(Axes.TIME));
-                        
-                        if (this.dataset.dimensionIndex(Axes.Z) != -1) {
-                            this.datasetCursor.setPosition(this.zPosition,
-                                    this.dataset.dimensionIndex(Axes.Z));
+                        // Iterate over channels
+                        for (int channel = 0; channel < channelDimension; channel++) {
+
+                            this.datasetCursor.setPosition(x, this.dataset.dimensionIndex(Axes.X));
+                            this.datasetCursor.setPosition(y, this.dataset.dimensionIndex(Axes.Y));
+                            this.datasetCursor.setPosition(t, this.dataset.dimensionIndex(Axes.TIME));
+
+                            if (this.dataset.dimensionIndex(Axes.Z) != -1) {
+                                this.datasetCursor.setPosition(this.zPosition,
+                                        this.dataset.dimensionIndex(Axes.Z));
+                            }                           
+                            if (this.dataset.dimensionIndex(Axes.CHANNEL) != -1) {
+                                this.datasetCursor.setPosition(channel,
+                                        this.dataset.dimensionIndex(Axes.CHANNEL));
+                            }
+
+                            this.kymographCursor.setPosition(new int[]{t, offset + j, i, channel});
+                            final T pixel = (T) this.kymographCursor.get();
+                            pixel.set((T) this.datasetCursor.get());
                         }
-                        if (this.dataset.dimensionIndex(Axes.CHANNEL) != -1) {
-                            this.datasetCursor.setPosition(this.channel,
-                                    this.dataset.dimensionIndex(Axes.CHANNEL));
-                        }
-                        
-                        this.kymographCursor.setPosition(new int[]{t, offset + j, i});
-                        final T pixel = (T) this.kymographCursor.get();
-                        pixel.set((T) this.datasetCursor.get());
                     }
                 }
 
@@ -217,9 +217,10 @@ public class KymographCreator {
 
         long xDimension = this.kymograph.dimension(this.kymograph.dimensionIndex(Axes.X));
         long yDimension = this.kymograph.dimension(this.kymograph.dimensionIndex(Axes.Y));
-        long[] dimensions = {xDimension, yDimension};
+        long channelDimension = this.kymograph.dimension(this.kymograph.dimensionIndex(Axes.CHANNEL));
+        long[] dimensions = {xDimension, yDimension, channelDimension};
 
-        AxisType[] axisTypes = {Axes.X, Axes.Y};
+        AxisType[] axisTypes = {Axes.X, Axes.Y, Axes.CHANNEL};
 
         String title = dataset.getName() + " (Projected Kymograph)";
 

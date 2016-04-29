@@ -71,12 +71,9 @@ public class KymographFactory {
     private Dataset kymograph;
 
     private final Roi roi;
-    private final List<Integer> channelsUsed;
 
-    public KymographFactory(Context context, Dataset dataset,
-            Roi roi, List<Integer> channelsUsed) {
+    public KymographFactory(Context context, Dataset dataset, Roi roi) {
         context.inject(this);
-        this.channelsUsed = channelsUsed;
         this.roi = roi;
         this.dataset = dataset;
 
@@ -88,11 +85,11 @@ public class KymographFactory {
     }
 
     public void build() {
-        
+
         // Find which Z stack is currently set (the kymograph will be build along this position.
         // TODO : do it the IJ2 way (imageDisplay.getPosition(Axes.Z) does not work).
         int zPosition = IJ.getImage().getZ();
-        
+
         // Build lines from the ROI
         LinesBuilder linesBuilder = new LinesBuilder(this.roi);
         linesBuilder.build();
@@ -100,34 +97,18 @@ public class KymographFactory {
         log.info(linesBuilder.getLines().size() + " lines with a width of "
                 + linesBuilder.getlineWidth() + " will be used for the kymograph " + this.ID + ".");
 
-        List<Dataset> kymographs = new ArrayList<>();
+        log.info("Creating kymograph for the channel.");
+        KymographCreator creator = new KymographCreator(this.context, this.dataset,
+                linesBuilder, zPosition);
+        creator.build();
 
-        // Init kymo creator for each channels and build kymos
-        for (Integer i : this.channelsUsed) {
-
-            log.info("Creating kymograph for the channel " + i + ".");
-            KymographCreator creator = new KymographCreator(this.context, this.dataset,
-                    i, linesBuilder, zPosition);
-
-            creator.build();
-            kymographs.add(creator.getProjectedKymograph());
-        }
-
-        if (this.channelsUsed.size() == 1) {
-            this.kymograph = kymographs.get(0);
-        } else {
-            this.mergeDataset(kymographs);
-        }
-
-        // Put back the original Roi object 
-        ImagePlus imp = IJ.getImage();
-        imp.setRoi(this.roi);
+        this.kymograph = creator.getProjectedKymograph();
     }
 
     public <T extends RealType<T>> void mergeDataset(List<Dataset> kymographs) {
 
         log.info("Merging kymographs for all channels now.");
-        
+
         List<RandomAccessibleInterval<T>> accessibles = new ArrayList();
         kymographs.stream().forEach((kymo) -> {
             accessibles.add((RandomAccessibleInterval<T>) kymo);
@@ -139,7 +120,7 @@ public class KymographFactory {
         // Create the merged kymograph
         this.kymograph = dsService.create(re);
         this.kymograph.setName(kymographs.get(0).getName());
-        
+
         // Make the third axis (index = 2) to CHANNEL type.
         // I don't what control exactly the AxisType used in Views.stack
         this.kymograph.axis(2).setType(Axes.CHANNEL);

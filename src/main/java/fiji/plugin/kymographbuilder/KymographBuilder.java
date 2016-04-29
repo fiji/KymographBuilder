@@ -83,9 +83,6 @@ public class KymographBuilder implements Command {
     @Parameter(type = ItemIO.OUTPUT)
     private Dataset kymograph;
 
-    // Which channel is used to build the kymograph. -1 for building on all channels.
-    private int channelToUse = -1;
-
     public static final String PLUGIN_NAME = "KymographBuilder";
     public static final String VERSION = version();
 
@@ -117,27 +114,13 @@ public class KymographBuilder implements Command {
         // Print some infos
         log.info(Utils.getInfo(dataset, "\t"));
 
-        // Decide which channels to use
-        List<Integer> channelsUsed = new ArrayList<>();
-        if (channelToUse == -1) {
-            // Use all channels
-            int channelIdx = dataset.dimensionIndex(Axes.CHANNEL);
-            for (int i = 0; i < dataset.dimension(channelIdx); i++) {
-                channelsUsed.add(i);
-            }
-        } else {
-            // Use only one channel
-            channelsUsed.add(channelToUse);
-        }
-        log.info("The following channels will be used : " + channelsUsed);
-
-        KymographFactory factory = new KymographFactory(ij.context(), dataset, roi, channelsUsed);
+        KymographFactory factory = new KymographFactory(ij.context(), dataset, roi);
         factory.build();
         
         // Get the results, add to command output.
         this.kymograph = factory.getKymograph();
 
-        log.info("Kymograph \"" + kymograph + "\" has been correcly generated.");
+        log.info("Kymograph \"" + kymograph + "\" has been correctly generated.");
     }
 
     public static void main(final String... args) throws Exception {
