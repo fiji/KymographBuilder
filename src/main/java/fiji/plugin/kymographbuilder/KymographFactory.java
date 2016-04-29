@@ -104,26 +104,4 @@ public class KymographFactory {
 
         this.kymograph = creator.getProjectedKymograph();
     }
-
-    public <T extends RealType<T>> void mergeDataset(List<Dataset> kymographs) {
-
-        log.info("Merging kymographs for all channels now.");
-
-        List<RandomAccessibleInterval<T>> accessibles = new ArrayList();
-        kymographs.stream().forEach((kymo) -> {
-            accessibles.add((RandomAccessibleInterval<T>) kymo);
-        });
-
-        // Stack a list of RandomAccessibleInterval
-        RandomAccessibleInterval<T> re = Views.stack(accessibles);
-
-        // Create the merged kymograph
-        this.kymograph = dsService.create(re);
-        this.kymograph.setName(kymographs.get(0).getName());
-
-        // Make the third axis (index = 2) to CHANNEL type.
-        // I don't what control exactly the AxisType used in Views.stack
-        this.kymograph.axis(2).setType(Axes.CHANNEL);
-    }
-
 }
