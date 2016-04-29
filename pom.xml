@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>KymographBuilder</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3-SNAPSHOT</version>
 
     <name>KymographBuilder</name>
     <description>KymographBuilder: Yet Another Kymograph Fiji plugin</description>
