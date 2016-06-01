@@ -31,6 +31,7 @@ import net.imagej.Dataset;
 import net.imagej.DatasetService;
 import net.imagej.axis.Axes;
 import net.imagej.axis.AxisType;
+import net.imagej.axis.CalibratedAxis;
 import net.imagej.ops.OpService;
 import net.imagej.ops.special.computer.UnaryComputerOp;
 import net.imglib2.RandomAccess;
@@ -227,6 +228,15 @@ public class KymographCreator {
         this.projectedKymograph = dsService.create(dimensions, title, axisTypes,
                 dataset.getValidBits(), dataset.isSigned(), !dataset.isInteger());
 
+        // Set correct unit calibrations. For the spatial axis I choose to copy
+        // X axis but I assume X and Y have the same calibration.
+        CalibratedAxis positionAxis = this.dataset.axis(this.dataset.dimensionIndex(Axes.X)).copy();
+        this.projectedKymograph.setAxis(positionAxis, 0);
+        
+        // TODO : find a way to convert a TIME axis to a sptial axis (at least for calibration)
+        //CalibratedAxis timAxis = this.dataset.axis(this.dataset.dimensionIndex(Axes.TIME)).copy();
+        //this.projectedKymograph.setAxis(timAxis, 1);
+        
         // I don't understand everything here (mostly the type stuff) but it works...
         UnaryComputerOp maxOp = (UnaryComputerOp) opService.op(net.imagej.ops.Ops.Stats.Max.class,
                 this.kymograph.getImgPlus().getImg());
