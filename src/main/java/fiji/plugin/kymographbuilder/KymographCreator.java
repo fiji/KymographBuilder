@@ -97,8 +97,8 @@ public class KymographCreator {
         // Create kymograph dataset
         // A 3D dataset because it contains one kymograph by "width" unit
         long[] dimensions = new long[4];
-        dimensions[0] = this.dataset.dimension(this.dataset.dimensionIndex(Axes.TIME));
-        dimensions[1] = this.linesBuilder.getTotalLength() - this.linesBuilder.getLines().size() + 1;
+        dimensions[0] = this.linesBuilder.getTotalLength() - this.linesBuilder.getLines().size() + 1;
+        dimensions[1] = this.dataset.dimension(this.dataset.dimensionIndex(Axes.TIME));
         dimensions[2] = this.linesBuilder.getlineWidth();
         dimensions[3] = this.dataset.dimension(this.dataset.dimensionIndex(Axes.CHANNEL));
 
@@ -200,7 +200,7 @@ public class KymographCreator {
                                         this.dataset.dimensionIndex(Axes.CHANNEL));
                             }
 
-                            this.kymographCursor.setPosition(new int[]{t, offset + j, i, channel});
+                            this.kymographCursor.setPosition(new int[]{offset + j, t, i, channel});
                             final T pixel = (T) this.kymographCursor.get();
                             pixel.set((T) this.datasetCursor.get());
                         }
