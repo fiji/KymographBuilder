@@ -58,6 +58,14 @@
                 <role>maintainer</role>
             </roles>
         </developer>
+        <developer>
+            <id>tferr</id>
+            <name>Tiago Ferreira</name>
+            <url>http://imagej.net/User:Tiago</url>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
     </developers>
     <contributors>
         <!--
