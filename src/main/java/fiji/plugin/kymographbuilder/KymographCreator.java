@@ -68,7 +68,7 @@ public class KymographCreator {
     private RandomAccess datasetCursor;
     private RandomAccess kymographCursor;
 
-    private int zPosition;
+    private final int zPosition;
 
     public KymographCreator(Context context, Dataset dataset,
             LinesBuilder linesBuilder, int zPosition) {
