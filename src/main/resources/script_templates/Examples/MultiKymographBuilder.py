@@ -3,7 +3,9 @@
 # @ImageJ ij
 # @LogService log
 
-
+# This script exemplifies how to instruct KymographBuilder to
+# process all the line ROIs present in the ROI Manager. For more
+# details see http://imagej.net/KymographBuilder
 import ij.plugin.frame.RoiManager as RM
 import fiji.plugin.kymographbuilder.KymographFactory as KFactory
 
