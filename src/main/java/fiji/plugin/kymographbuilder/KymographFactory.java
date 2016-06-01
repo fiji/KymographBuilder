@@ -27,7 +27,6 @@ package fiji.plugin.kymographbuilder;
 
 import ij.IJ;
 import ij.gui.Roi;
-import java.util.concurrent.atomic.AtomicInteger;
 import net.imagej.Dataset;
 import net.imagej.DatasetService;
 import org.scijava.Context;
@@ -41,9 +40,6 @@ import org.scijava.ui.UIService;
  * @author Hadrien Mary
  */
 public class KymographFactory {
-
-    public static AtomicInteger IDcounter = new AtomicInteger(-1);
-    private final int ID;
 
     @Parameter
     private Context context;
@@ -62,15 +58,15 @@ public class KymographFactory {
 
     private final Dataset dataset;
     private Dataset kymograph;
+    private int id;
 
     private final Roi roi;
 
-    public KymographFactory(Context context, Dataset dataset, Roi roi) {
+    public KymographFactory(Context context, Dataset dataset, Roi roi, int id) {
         context.inject(this);
         this.roi = roi;
         this.dataset = dataset;
-
-        this.ID = IDcounter.incrementAndGet();
+        this.id = id;
     }
 
     public Dataset getKymograph() {
@@ -87,12 +83,12 @@ public class KymographFactory {
         LinesBuilder linesBuilder = new LinesBuilder(this.roi);
         linesBuilder.build();
 
+        log.info("Creating kymograph n°" + this.id + ".");
         log.info(linesBuilder.getLines().size() + " lines with a width of "
-                + linesBuilder.getlineWidth() + " will be used for the kymograph " + this.ID + ".");
+                + linesBuilder.getlineWidth() + " will be used for the kymograph n°" + this.id + ".");
 
-        log.info("Creating kymograph for the channel.");
         KymographCreator creator = new KymographCreator(this.context, this.dataset,
-                linesBuilder, zPosition);
+                linesBuilder, zPosition, this.id);
         creator.build();
 
         this.kymograph = creator.getProjectedKymograph();

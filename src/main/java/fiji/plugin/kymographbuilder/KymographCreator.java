@@ -71,14 +71,16 @@ public class KymographCreator {
     private RandomAccess kymographCursor;
 
     private final int zPosition;
+    private final int id;
 
     public KymographCreator(Context context, Dataset dataset,
-            LinesBuilder linesBuilder, int zPosition) {
+            LinesBuilder linesBuilder, int zPosition, int id) {
 
         context.inject(this);
         this.linesBuilder = linesBuilder;
         this.dataset = dataset;
         this.zPosition = zPosition;
+        this.id = id;
     }
 
     public Dataset getKymograph() {
@@ -106,7 +108,7 @@ public class KymographCreator {
 
         AxisType[] axisTypes = {Axes.X, Axes.Y, Axes.Z, Axes.CHANNEL};
 
-        String title = dataset.getName() + " (Kymograph)";
+        String title = dataset.getName() + " (Kymograph " + this.id + ")";
 
         this.kymograph = dsService.create(dimensions, title, axisTypes,
                 dataset.getValidBits(), dataset.isSigned(), !dataset.isInteger());
@@ -224,7 +226,7 @@ public class KymographCreator {
 
         AxisType[] axisTypes = {Axes.X, Axes.Y, Axes.CHANNEL};
 
-        String title = dataset.getName() + " (Projected Kymograph)";
+        String title = dataset.getName() + " (Kymograph " + this.id + ")";
 
         this.projectedKymograph = dsService.create(dimensions, title, axisTypes,
                 dataset.getValidBits(), dataset.isSigned(), !dataset.isInteger());
@@ -233,7 +235,7 @@ public class KymographCreator {
         // X axis but I assume X and Y have the same calibration.
         CalibratedAxis positionAxis = this.dataset.axis(this.dataset.dimensionIndex(Axes.X)).copy();
         this.projectedKymograph.setAxis(positionAxis, 0);
-                log.info(this.dataset.axis(this.dataset.dimensionIndex(Axes.TIME)).calibratedValue(1));
+
         CalibratedAxis timAxis = new DefaultLinearAxis(Axes.Y, this.dataset.axis(this.dataset.dimensionIndex(Axes.TIME)).calibratedValue(1));
         this.projectedKymograph.setAxis(timAxis, 1);
         

@@ -1,3 +1,4 @@
+
 import fiji.plugin.kymographbuilder.KymographBuilder;
 
 import ij.plugin.frame.RoiManager;
@@ -32,7 +33,7 @@ public class Main {
 
         // Add rois
         RoiManager rm = RoiManager.getRoiManager();
-        rm.runCommand("Open", Main.class.getResource("/testdata/mt.roi").getPath());
+        rm.runCommand("Open", Main.class.getResource("/testdata/RoiSet.zip").getPath());
         rm.runCommand("Show All");
 
         ij.log().info("Load ROIs data.");

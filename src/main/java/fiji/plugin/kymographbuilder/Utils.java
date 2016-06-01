@@ -23,13 +23,15 @@
  * THE SOFTWARE.
  * #L%
  */
-
 package fiji.plugin.kymographbuilder;
 
 import ij.IJ;
 import ij.ImagePlus;
 import ij.gui.Roi;
 import ij.plugin.frame.RoiManager;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import net.imagej.Dataset;
 import net.imagej.ImageJ;
 import net.imagej.axis.Axes;
@@ -82,8 +84,8 @@ public class Utils {
     }
 
     /**
-     * Check if Z and Time dimensions should be swapped in a given dataset. If it does then ask user
-     * if he wants to swap them.
+     * Check if Z and Time dimensions should be swapped in a given dataset. If
+     * it does then ask user if he wants to swap them.
      *
      * @param ij
      * @param dataset
@@ -120,8 +122,8 @@ public class Utils {
     }
 
     /**
-     * Check if Z and Time dimensions should be swapped in a given dataset. If it does then swap
-     * them without asking.
+     * Check if Z and Time dimensions should be swapped in a given dataset. If
+     * it does then swap them without asking.
      *
      * @param ij
      * @param dataset
@@ -145,30 +147,29 @@ public class Utils {
 
     }
 
-    static Roi checkForROIs(ImageDisplay imageDisplay, ConvertService convert, UIService ui) {
+    static List<Roi> checkForROIs(ImageDisplay imageDisplay, ConvertService convert, UIService ui) {
         // TODO : imageDisplay should be used here
-        
-        ImagePlus imp = IJ.getImage();
-        Roi roi = imp.getRoi();
 
-        if (roi == null) {
-            // Look in ROI manager
-            RoiManager rm = RoiManager.getRoiManager();
-            roi = rm.getRoi(0);
+        List rois = new ArrayList<>();
+
+        RoiManager rm = RoiManager.getInstance();
+        if (rm != null && rm.getCount() > 0) {
+            for (Roi roi : rm.getRoisAsArray()) {
+                if ("Straight Line".equals(roi.getTypeAsString())
+                        || "Polyline".equals(roi.getTypeAsString())) {
+                    rois.add(roi);
+                }
+            }
+        } else if (IJ.getImage().getRoi() != null) {
+            rois.add(IJ.getImage().getRoi());
         }
 
-        if (roi == null) {
+        if (rois.isEmpty()) {
             ui.showDialog("Please define a line in order to build the kymograph.");
             return null;
         }
 
-        if (!"Straight Line".equals(roi.getTypeAsString())
-                && !"Polyline".equals(roi.getTypeAsString())) {
-            ui.showDialog("Please use the Straight Line or Segmented Line selection tool.");
-            return null;
-        }
-
-        return roi;
+        return rois;
     }
 
 }

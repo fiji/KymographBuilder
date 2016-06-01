@@ -27,6 +27,8 @@ package fiji.plugin.kymographbuilder;
 
 import ij.gui.Roi;
 import io.scif.services.DatasetIOService;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.imagej.Dataset;
 import net.imagej.ImageJ;
@@ -77,7 +79,7 @@ public class KymographBuilder implements Command {
     private ImageDisplay imageDisplay;
 
     @Parameter(type = ItemIO.OUTPUT)
-    private Dataset kymograph;
+    private List<Dataset> kymographs;
 
     public static final String PLUGIN_NAME = "KymographBuilder";
     public static final String VERSION = version();
@@ -98,8 +100,8 @@ public class KymographBuilder implements Command {
 
         Dataset dataset = (Dataset) imageDisplay.getActiveView().getData();
 
-        Roi roi = Utils.checkForROIs(imageDisplay, ij.convert(), ij.ui());
-        if (roi == null) {
+        List<Roi> rois = Utils.checkForROIs(imageDisplay, ij.convert(), ij.ui());
+        if (rois == null) {
             // Close the plugin
             return;
         }
@@ -109,14 +111,21 @@ public class KymographBuilder implements Command {
 
         // Print some infos
         log.info(Utils.getInfo(dataset, "\t"));
+        
+        kymographs = new ArrayList<>();
 
-        KymographFactory factory = new KymographFactory(ij.context(), dataset, roi);
-        factory.build();
+        int i = 1;
+        for (Roi roi : rois) {
+            KymographFactory factory = new KymographFactory(ij.context(), dataset, roi, i);
+            factory.build();
 
-        // Get the results, add to command output.
-        this.kymograph = factory.getKymograph();
+            // Get the results, add to command output.
+            Dataset kymograph = factory.getKymograph();
+            kymographs.add(kymograph);
 
-        log.info("Kymograph \"" + kymograph + "\" has been correctly generated.");
+            log.info("Kymograph \"" + kymograph + "\" has been correctly generated.");
+            i++;
+        }
     }
 
     public static void main(final String... args) throws Exception {
