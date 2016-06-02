@@ -152,9 +152,10 @@ public class Utils {
         Roi roi = imp.getRoi();
 
         if (roi == null) {
-            // Look in ROI manager
-            RoiManager rm = RoiManager.getRoiManager();
-            roi = rm.getRoi(0);
+            // Look in ROI manager, if open
+            RoiManager rm = RoiManager.getInstance();
+            if (rm != null)
+                roi = rm.getRoi(0);
         }
 
         if (roi == null) {
