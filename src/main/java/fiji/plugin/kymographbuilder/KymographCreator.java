@@ -99,7 +99,7 @@ public class KymographCreator {
         // Create kymograph dataset
         // A 3D dataset because it contains one kymograph by "width" unit
         long[] dimensions = new long[4];
-        dimensions[0] = this.linesBuilder.getTotalLength() - this.linesBuilder.getLines().size() + 1;
+        dimensions[0] = this.linesBuilder.getTotalLength() - this.linesBuilder.getLines().size();
         dimensions[1] = this.dataset.dimension(this.dataset.dimensionIndex(Axes.TIME));
         dimensions[2] = this.linesBuilder.getlineWidth();
         dimensions[3] = this.dataset.dimension(this.dataset.dimensionIndex(Axes.CHANNEL));
@@ -180,6 +180,10 @@ public class KymographCreator {
                 x = Math.round(xpoints[j]);
                 y = Math.round(ypoints[j]);
 
+                if (j >= this.linesBuilder.getTotalLength() - this.linesBuilder.getLines().size()) {
+                    break;
+                }
+
                 // Iterate over the time axis
                 for (int t = 0; t < timeDimension; t++) {
 
@@ -233,10 +237,10 @@ public class KymographCreator {
         // X axis but I assume X and Y have the same calibration.
         CalibratedAxis positionAxis = this.dataset.axis(this.dataset.dimensionIndex(Axes.X)).copy();
         this.projectedKymograph.setAxis(positionAxis, 0);
-                log.info(this.dataset.axis(this.dataset.dimensionIndex(Axes.TIME)).calibratedValue(1));
+        log.info(this.dataset.axis(this.dataset.dimensionIndex(Axes.TIME)).calibratedValue(1));
         CalibratedAxis timAxis = new DefaultLinearAxis(Axes.Y, this.dataset.axis(this.dataset.dimensionIndex(Axes.TIME)).calibratedValue(1));
         this.projectedKymograph.setAxis(timAxis, 1);
-        
+
         // I don't understand everything here (mostly the type stuff) but it works...
         UnaryComputerOp maxOp = (UnaryComputerOp) opService.op(net.imagej.ops.Ops.Stats.Max.class,
                 this.kymograph.getImgPlus().getImg());
