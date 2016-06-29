@@ -237,7 +237,7 @@ public class KymographCreator {
         // X axis but I assume X and Y have the same calibration.
         CalibratedAxis positionAxis = this.dataset.axis(this.dataset.dimensionIndex(Axes.X)).copy();
         this.projectedKymograph.setAxis(positionAxis, 0);
-        log.info(this.dataset.axis(this.dataset.dimensionIndex(Axes.TIME)).calibratedValue(1));
+
         CalibratedAxis timAxis = new DefaultLinearAxis(Axes.Y, this.dataset.axis(this.dataset.dimensionIndex(Axes.TIME)).calibratedValue(1));
         this.projectedKymograph.setAxis(timAxis, 1);
 
