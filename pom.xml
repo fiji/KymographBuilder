@@ -1,160 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>sc.fiji</groupId>
-        <artifactId>pom-fiji</artifactId>
-        <version>24.0.0</version>
-        <relativePath />
-    </parent>
+	<parent>
+		<groupId>sc.fiji</groupId>
+		<artifactId>pom-fiji</artifactId>
+		<version>24.0.0</version>
+		<relativePath />
+	</parent>
 
-    <artifactId>KymographBuilder</artifactId>
-    <version>1.2.5-SNAPSHOT</version>
+	<artifactId>KymographBuilder</artifactId>
+	<version>1.2.5-SNAPSHOT</version>
 
-    <name>KymographBuilder</name>
-    <description>KymographBuilder: Yet Another Kymograph Fiji plugin</description>
-    <url>http://imagej.net/KymographBuilder</url>
-    <inceptionYear>2016</inceptionYear>
-    <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>http://choosealicense.com/licenses/mit/</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+	<name>KymographBuilder</name>
+	<description>KymographBuilder: Yet Another Kymograph Fiji plugin</description>
+	<url>http://imagej.net/KymographBuilder</url>
+	<inceptionYear>2016</inceptionYear>
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://choosealicense.com/licenses/mit/</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
-    <developers>
-        <developer>
-            <id>hadim</id>
-            <name>Hadrien Mary</name>
-            <url>http://imagej.net/User:Hadim</url>
-            <roles>
-                <role>founder</role>
-                <role>lead</role>
-                <role>developer</role>
-                <role>debugger</role>
-                <role>reviewer</role>
-                <role>support</role>
-                <role>maintainer</role>
-            </roles>
-            <timezone>-5</timezone>
-        </developer>
-        <developer>
-            <id>ctrueden</id>
-            <name>Curtis Rueden</name>
-            <url>http://imagej.net/User:Rueden</url>
-            <roles>
-                <role>maintainer</role>
-            </roles>
-        </developer>
-        <developer>
-            <id>tferr</id>
-            <name>Tiago Ferreira</name>
-            <url>http://imagej.net/User:Tiago</url>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-    </developers>
-    <contributors>
-        <!--
-        NB: Need a least one element to override the parent.
-        See: https://issues.apache.org/jira/browse/MNG-5220
-        -->
-        <contributor>
-            <name>None</name>
-        </contributor>
-    </contributors>
+	<developers>
+		<developer>
+			<id>hadim</id>
+			<name>Hadrien Mary</name>
+			<url>http://imagej.net/User:Hadim</url>
+			<roles>
+				<role>founder</role>
+				<role>lead</role>
+				<role>developer</role>
+				<role>debugger</role>
+				<role>reviewer</role>
+				<role>support</role>
+				<role>maintainer</role>
+			</roles>
+			<timezone>-5</timezone>
+		</developer>
+		<developer>
+			<id>ctrueden</id>
+			<name>Curtis Rueden</name>
+			<url>http://imagej.net/User:Rueden</url>
+			<roles>
+				<role>maintainer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>tferr</id>
+			<name>Tiago Ferreira</name>
+			<url>http://imagej.net/User:Tiago</url>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+	<contributors>
+		<!--
+		NB: Need a least one element to override the parent.
+		See: https://issues.apache.org/jira/browse/MNG-5220
+		-->
+		<contributor>
+			<name>None</name>
+		</contributor>
+	</contributors>
 
-    <scm>
-        <connection>scm:git:git://github.com/fiji/KymographBuilder</connection>
-        <developerConnection>scm:git:git@github.com:fiji/KymographBuilder</developerConnection>
-        <tag>HEAD</tag>
-        <url>https://github.com/fiji/KymographBuilder</url>
-    </scm>
-    <issueManagement>
-        <system>GitHub Issues</system>
-        <url>https://github.com/fiji/KymographBuilder/issues</url>
-    </issueManagement>
-    <ciManagement>
-        <system>Jenkins</system>
-        <url>http://jenkins.imagej.net/job/KymographBuilder/</url>
-    </ciManagement>
+	<scm>
+			<connection>scm:git:git://github.com/fiji/KymographBuilder</connection>
+			<developerConnection>scm:git:git@github.com:fiji/KymographBuilder</developerConnection>
+			<tag>HEAD</tag>
+			<url>https://github.com/fiji/KymographBuilder</url>
+		</scm>
+	<issueManagement>
+			<system>GitHub Issues</system>
+			<url>https://github.com/fiji/KymographBuilder/issues</url>
+		</issueManagement>
+	<ciManagement>
+			<system>Jenkins</system>
+			<url>http://jenkins.imagej.net/job/KymographBuilder/</url>
+		</ciManagement>
 
-    <repositories>
-        <repository>
-            <id>imagej.public</id>
-            <url>http://maven.imagej.net/content/groups/public</url>
-        </repository>
-    </repositories>
+	<repositories>
+			<repository>
+				<id>imagej.public</id>
+				<url>http://maven.imagej.net/content/groups/public</url>
+			</repository>
+		</repositories>
 
-    <dependencies>
+	<dependencies>
 
-        <!--ImageJ-->
-        <dependency>
-            <groupId>net.imagej</groupId>
-            <artifactId>imagej</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.imagej</groupId>
-            <artifactId>imagej-common</artifactId>
-        </dependency>
+			<!--ImageJ-->
+			<dependency>
+				<groupId>net.imagej</groupId>
+				<artifactId>imagej</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>net.imagej</groupId>
+				<artifactId>imagej-common</artifactId>
+			</dependency>
 
-        <dependency>
-            <groupId>net.imagej</groupId>
-            <artifactId>imagej-ops</artifactId>
-        </dependency>
+			<dependency>
+				<groupId>net.imagej</groupId>
+				<artifactId>imagej-ops</artifactId>
+			</dependency>
 
-        <dependency>
-            <groupId>io.scif</groupId>
-            <artifactId>scifio</artifactId>
-        </dependency>
+			<dependency>
+				<groupId>io.scif</groupId>
+				<artifactId>scifio</artifactId>
+			</dependency>
 
-        <dependency>
-            <groupId>net.imglib2</groupId>
-            <artifactId>imglib2</artifactId>
-        </dependency>
+			<dependency>
+				<groupId>net.imglib2</groupId>
+				<artifactId>imglib2</artifactId>
+			</dependency>
 
-        <dependency>
-            <groupId>org.scijava</groupId>
-            <artifactId>scijava-common</artifactId>
-        </dependency>
+			<dependency>
+				<groupId>org.scijava</groupId>
+				<artifactId>scijava-common</artifactId>
+			</dependency>
 
 
-        <!--IJ1 dependencies-->
-        <dependency>
-            <groupId>net.imagej</groupId>
-            <artifactId>ij</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.imagej</groupId>
-            <artifactId>ij1-patcher</artifactId>
-        </dependency>
+			<!--IJ1 dependencies-->
+			<dependency>
+				<groupId>net.imagej</groupId>
+				<artifactId>ij</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>net.imagej</groupId>
+				<artifactId>ij1-patcher</artifactId>
+			</dependency>
 
-        <!-- Enable IJ1 interface at runtime -->
-        <dependency>
-            <groupId>net.imagej</groupId>
-            <artifactId>imagej-legacy</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
+			<!-- Enable IJ1 interface at runtime -->
+			<dependency>
+				<groupId>net.imagej</groupId>
+				<artifactId>imagej-legacy</artifactId>
+				<scope>runtime</scope>
+				<optional>true</optional>
+			</dependency>
 
-    </dependencies>
+		</dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <configuration>
-                    <licenseName>mit</licenseName>
-                    <projectName>${project.description}</projectName>
-                    <organizationName>Hadrien Mary</organizationName>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
+	<build>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<configuration>
+						<licenseName>mit</licenseName>
+						<projectName>${project.description}</projectName>
+						<organizationName>Hadrien Mary</organizationName>
+					</configuration>
+				</plugin>
+			</plugins>
+		</build>
+	</project>
