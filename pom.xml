@@ -70,91 +70,91 @@
 	</contributors>
 
 	<scm>
-			<connection>scm:git:git://github.com/fiji/KymographBuilder</connection>
-			<developerConnection>scm:git:git@github.com:fiji/KymographBuilder</developerConnection>
-			<tag>HEAD</tag>
-			<url>https://github.com/fiji/KymographBuilder</url>
-		</scm>
+		<connection>scm:git:git://github.com/fiji/KymographBuilder</connection>
+		<developerConnection>scm:git:git@github.com:fiji/KymographBuilder</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/fiji/KymographBuilder</url>
+	</scm>
 	<issueManagement>
-			<system>GitHub Issues</system>
-			<url>https://github.com/fiji/KymographBuilder/issues</url>
-		</issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/fiji/KymographBuilder/issues</url>
+	</issueManagement>
 	<ciManagement>
-			<system>Jenkins</system>
-			<url>http://jenkins.imagej.net/job/KymographBuilder/</url>
-		</ciManagement>
+		<system>Jenkins</system>
+		<url>http://jenkins.imagej.net/job/KymographBuilder/</url>
+	</ciManagement>
 
 	<repositories>
-			<repository>
-				<id>imagej.public</id>
-				<url>http://maven.imagej.net/content/groups/public</url>
-			</repository>
-		</repositories>
+		<repository>
+			<id>imagej.public</id>
+			<url>http://maven.imagej.net/content/groups/public</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 
-			<!--ImageJ-->
-			<dependency>
-				<groupId>net.imagej</groupId>
-				<artifactId>imagej</artifactId>
-			</dependency>
-			<dependency>
-				<groupId>net.imagej</groupId>
-				<artifactId>imagej-common</artifactId>
-			</dependency>
+		<!--ImageJ-->
+		<dependency>
+			<groupId>net.imagej</groupId>
+			<artifactId>imagej</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.imagej</groupId>
+			<artifactId>imagej-common</artifactId>
+		</dependency>
 
-			<dependency>
-				<groupId>net.imagej</groupId>
-				<artifactId>imagej-ops</artifactId>
-			</dependency>
+		<dependency>
+			<groupId>net.imagej</groupId>
+			<artifactId>imagej-ops</artifactId>
+		</dependency>
 
-			<dependency>
-				<groupId>io.scif</groupId>
-				<artifactId>scifio</artifactId>
-			</dependency>
+		<dependency>
+			<groupId>io.scif</groupId>
+			<artifactId>scifio</artifactId>
+		</dependency>
 
-			<dependency>
-				<groupId>net.imglib2</groupId>
-				<artifactId>imglib2</artifactId>
-			</dependency>
+		<dependency>
+			<groupId>net.imglib2</groupId>
+			<artifactId>imglib2</artifactId>
+		</dependency>
 
-			<dependency>
-				<groupId>org.scijava</groupId>
-				<artifactId>scijava-common</artifactId>
-			</dependency>
+		<dependency>
+			<groupId>org.scijava</groupId>
+			<artifactId>scijava-common</artifactId>
+		</dependency>
 
 
-			<!--IJ1 dependencies-->
-			<dependency>
-				<groupId>net.imagej</groupId>
-				<artifactId>ij</artifactId>
-			</dependency>
-			<dependency>
-				<groupId>net.imagej</groupId>
-				<artifactId>ij1-patcher</artifactId>
-			</dependency>
+		<!--IJ1 dependencies-->
+		<dependency>
+			<groupId>net.imagej</groupId>
+			<artifactId>ij</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.imagej</groupId>
+			<artifactId>ij1-patcher</artifactId>
+		</dependency>
 
-			<!-- Enable IJ1 interface at runtime -->
-			<dependency>
-				<groupId>net.imagej</groupId>
-				<artifactId>imagej-legacy</artifactId>
-				<scope>runtime</scope>
-				<optional>true</optional>
-			</dependency>
+		<!-- Enable IJ1 interface at runtime -->
+		<dependency>
+			<groupId>net.imagej</groupId>
+			<artifactId>imagej-legacy</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
 
-		</dependencies>
+	</dependencies>
 
 	<build>
-			<plugins>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>license-maven-plugin</artifactId>
-					<configuration>
-						<licenseName>mit</licenseName>
-						<projectName>${project.description}</projectName>
-						<organizationName>Hadrien Mary</organizationName>
-					</configuration>
-				</plugin>
-			</plugins>
-		</build>
-	</project>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<configuration>
+					<licenseName>mit</licenseName>
+					<projectName>${project.description}</projectName>
+					<organizationName>Hadrien Mary</organizationName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
