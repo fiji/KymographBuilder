@@ -7,7 +7,7 @@
 # process all the line ROIs present in the ROI Manager. For more
 # details see http://imagej.net/KymographBuilder
 import ij.plugin.frame.RoiManager as RM
-import fiji.plugin.kymographbuilder.KymographFactory as KFactory
+import sc.fiji.kymographBuilder.KymographFactory as KFactory
 
 
 def validDataset(dataset):

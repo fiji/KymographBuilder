@@ -1,6 +1,6 @@
-import fiji.plugin.kymographbuilder.KymographBuilder;
-
+package sc.fiji.kymographBuilder;
 import ij.plugin.frame.RoiManager;
+import sc.fiji.kymographBuilder.KymographBuilder;
 
 import java.io.IOException;
 

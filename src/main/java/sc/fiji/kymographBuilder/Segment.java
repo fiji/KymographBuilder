@@ -24,7 +24,7 @@
  * #L%
  */
 
-package fiji.plugin.kymographbuilder;
+package sc.fiji.kymographBuilder;
 
 /**
  * Simple Line class. I called it Segment instead of Line to avoid name conflict.

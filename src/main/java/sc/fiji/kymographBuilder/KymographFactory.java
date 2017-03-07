@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  * #L%
  */
-package fiji.plugin.kymographbuilder;
+package sc.fiji.kymographBuilder;
 
 import ij.IJ;
 import ij.gui.Roi;
