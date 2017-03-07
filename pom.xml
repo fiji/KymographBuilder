@@ -5,19 +5,24 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>sc.fiji</groupId>
-		<artifactId>pom-fiji</artifactId>
-		<version>24.0.0</version>
+		<groupId>org.scijava</groupId>
+		<artifactId>pom-scijava</artifactId>
+		<version>14.0.0</version>
 		<relativePath />
 	</parent>
 
+	<groupId>sc.fiji</groupId>
 	<artifactId>KymographBuilder</artifactId>
 	<version>1.2.5-SNAPSHOT</version>
 
 	<name>KymographBuilder</name>
-	<description>KymographBuilder: Yet Another Kymograph Fiji plugin</description>
+	<description>KymographBuilder: Yet Another Kymograph Fiji plugin.</description>
 	<url>http://imagej.net/KymographBuilder</url>
 	<inceptionYear>2016</inceptionYear>
+	<organization>
+		<name>Fiji</name>
+		<url>http://fiji.sc/</url>
+	</organization>
 	<licenses>
 		<license>
 			<name>MIT License</name>
@@ -69,6 +74,13 @@
 		</contributor>
 	</contributors>
 
+	<mailingLists>
+		<mailingList>
+			<name>ImageJ Forum</name>
+			<archive>http://forum.imagej.net/</archive>
+		</mailingList>
+	</mailingLists>
+
 	<scm>
 		<connection>scm:git:git://github.com/fiji/KymographBuilder</connection>
 		<developerConnection>scm:git:git@github.com:fiji/KymographBuilder</developerConnection>
@@ -83,6 +95,11 @@
 		<system>Jenkins</system>
 		<url>http://jenkins.imagej.net/job/KymographBuilder/</url>
 	</ciManagement>
+
+	<properties>
+		<license.licenseName>mit</license.licenseName>
+		<license.copyrightOwners>Fiji developers.</license.copyrightOwners>
+	</properties>
 
 	<repositories>
 		<repository>
