@@ -1,4 +1,4 @@
-[![](http://jenkins.imagej.net/job/KymographBuilder/lastBuild/badge/icon)](http://jenkins.imagej.net/job/KymographBuilder/)
+[![](https://travis-ci.org/fiji/KymographBuilder.svg?branch=master)](https://travis-ci.org/fiji/KymographBuilder)
 
 [![DOI](https://zenodo.org/badge/4163/fiji/KymographBuilder.svg)](https://zenodo.org/badge/latestdoi/4163/fiji/KymographBuilder)
 
