@@ -23,78 +23,87 @@
  * THE SOFTWARE.
  * #L%
  */
+
 package sc.fiji.kymographBuilder;
 
-import ij.IJ;
-import ij.gui.Roi;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import net.imagej.Dataset;
 import net.imagej.DatasetService;
+
 import org.scijava.Context;
 import org.scijava.convert.ConvertService;
 import org.scijava.log.LogService;
 import org.scijava.plugin.Parameter;
 import org.scijava.ui.UIService;
 
+import ij.ImagePlus;
+import ij.gui.Roi;
+
 /**
- *
  * @author Hadrien Mary
  */
 public class KymographFactory {
 
-    public static AtomicInteger IDcounter = new AtomicInteger(-1);
-    private final int ID;
+	public static AtomicInteger IDcounter = new AtomicInteger(-1);
+	private final int ID;
 
-    @Parameter
-    private Context context;
+	@Parameter
+	private Context context;
 
-    @Parameter
-    private DatasetService dsService;
+	@Parameter
+	private DatasetService dsService;
 
-    @Parameter
-    private LogService log;
+	@Parameter
+	private LogService log;
 
-    @Parameter
-    private ConvertService convert;
+	@Parameter
+	private ConvertService convert;
 
-    @Parameter
-    private UIService ui;
+	@Parameter
+	private UIService ui;
 
-    private final Dataset dataset;
-    private Dataset kymograph;
+	private final Dataset dataset;
+	private Dataset kymograph;
 
-    private final Roi roi;
+	private final Roi roi;
 
-    public KymographFactory(Context context, Dataset dataset, Roi roi) {
-        context.inject(this);
-        this.roi = roi;
-        this.dataset = dataset;
+	public KymographFactory(Context context, Dataset dataset, Roi roi) {
+		context.inject(this);
+		this.roi = roi;
+		this.dataset = dataset;
 
-        this.ID = IDcounter.incrementAndGet();
-    }
+		this.ID = IDcounter.incrementAndGet();
+	}
 
-    public Dataset getKymograph() {
-        return this.kymograph;
-    }
+	public Dataset getKymograph() {
+		return this.kymograph;
+	}
 
-    public void build() {
+	public void build() {
 
-        // Find which Z stack is currently set (the kymograph will be build along this position.
-        // TODO : do it the IJ2 way (imageDisplay.getPosition(Axes.Z) does not work).
-        int zPosition = IJ.getImage().getZ();
+		// Find which Z stack is currently set (the kymograph will be build along
+		// this position.
+		// TODO : do it the IJ2 way (imageDisplay.getPosition(Axes.Z) does not
+		// work).
+		ImagePlus imp = ij.WindowManager.getCurrentImage();
+		int zPosition = -1;
+		if (imp != null) {
+			zPosition = imp.getZ();
+		}
 
-        // Build lines from the ROI
-        LinesBuilder linesBuilder = new LinesBuilder(this.roi);
-        linesBuilder.build();
+		// Build lines from the ROI
+		LinesBuilder linesBuilder = new LinesBuilder(this.roi);
+		linesBuilder.build();
 
-        log.info(linesBuilder.getLines().size() + " lines with a width of "
-                + linesBuilder.getlineWidth() + " will be used for the kymograph " + this.ID + ".");
+		log.info(linesBuilder.getLines().size() + " lines with a width of " + linesBuilder
+			.getlineWidth() + " will be used for the kymograph " + this.ID + ".");
 
-        log.info("Creating kymograph for the channel.");
-        KymographCreator creator = new KymographCreator(this.context, this.dataset,
-                linesBuilder, zPosition);
-        creator.build();
+		log.info("Creating kymograph for the channel.");
+		KymographCreator creator = new KymographCreator(this.context, this.dataset, linesBuilder,
+			zPosition);
+		creator.build();
 
-        this.kymograph = creator.getProjectedKymograph();
-    }
+		this.kymograph = creator.getProjectedKymograph();
+	}
 }

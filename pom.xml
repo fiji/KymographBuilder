@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -63,10 +64,7 @@
 		</developer>
 	</developers>
 	<contributors>
-		<!--
-		NB: Need at least one element to override the parent.
-		See: https://issues.apache.org/jira/browse/MNG-5220
-		-->
+		<!-- NB: Need at least one element to override the parent. See: https://issues.apache.org/jira/browse/MNG-5220 -->
 		<contributor>
 			<name>None</name>
 		</contributor>
@@ -110,7 +108,7 @@
 	</repositories>
 
 	<dependencies>
-		<!--ImageJ-->
+		<!--ImageJ -->
 		<dependency>
 			<groupId>net.imagej</groupId>
 			<artifactId>imagej</artifactId>
@@ -141,7 +139,7 @@
 		</dependency>
 
 
-		<!--IJ1 dependencies-->
+		<!--IJ1 dependencies -->
 		<dependency>
 			<groupId>net.imagej</groupId>
 			<artifactId>ij</artifactId>
@@ -158,5 +156,13 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Unit test library -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 </project>

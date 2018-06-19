@@ -26,150 +26,149 @@
 
 package sc.fiji.kymographBuilder;
 
-import ij.IJ;
-import ij.ImagePlus;
-import ij.gui.Roi;
-import ij.plugin.frame.RoiManager;
+import static org.scijava.ui.DialogPrompt.Result.YES_OPTION;
+
 import net.imagej.Dataset;
 import net.imagej.ImageJ;
 import net.imagej.axis.Axes;
-import net.imagej.display.ImageDisplay;
-import org.scijava.convert.ConvertService;
+
 import org.scijava.ui.DialogPrompt.MessageType;
 import org.scijava.ui.DialogPrompt.OptionType;
 import org.scijava.ui.DialogPrompt.Result;
-import static org.scijava.ui.DialogPrompt.Result.YES_OPTION;
-import org.scijava.ui.UIService;
+
+import ij.ImagePlus;
+import ij.gui.Roi;
+import ij.plugin.frame.RoiManager;
 
 /**
- *
  * @author Hadrien Mary
  */
 public class Utils {
 
-    /**
-     * Return some common informations about a dataset.
-     *
-     * @param dataset
-     * @param prefix
-     * @return
-     */
-    public static String getInfo(Dataset dataset, String prefix) {
-        String s = new String();
+	/**
+	 * Return some common informations about a dataset.
+	 *
+	 * @param dataset
+	 * @param prefix
+	 * @return
+	 */
+	public static String getInfo(Dataset dataset, String prefix) {
+		String s = new String();
 
-        s += prefix + "Dataset : " + dataset.toString() + "\n";
+		s += prefix + "Dataset : " + dataset.toString() + "\n";
 
-        s += prefix + "Width = ";
-        s += dataset.dimension(dataset.dimensionIndex(Axes.X)) + "\n";
+		s += prefix + "Width = ";
+		s += dataset.dimension(dataset.dimensionIndex(Axes.X)) + "\n";
 
-        s += prefix + "Height = ";
-        s += dataset.dimension(dataset.dimensionIndex(Axes.Y)) + "\n";
+		s += prefix + "Height = ";
+		s += dataset.dimension(dataset.dimensionIndex(Axes.Y)) + "\n";
 
-        s += prefix + "Depth = ";
-        s += dataset.dimension(dataset.dimensionIndex(Axes.Z)) + "\n";
+		s += prefix + "Depth = ";
+		s += dataset.dimension(dataset.dimensionIndex(Axes.Z)) + "\n";
 
-        s += prefix + "Timepoints = ";
-        s += dataset.dimension(dataset.dimensionIndex(Axes.TIME)) + "\n";
+		s += prefix + "Timepoints = ";
+		s += dataset.dimension(dataset.dimensionIndex(Axes.TIME)) + "\n";
 
-        s += prefix + "Number of channels = ";
-        s += dataset.dimension(dataset.dimensionIndex(Axes.CHANNEL)) + "\n";
+		s += prefix + "Number of channels = ";
+		s += dataset.dimension(dataset.dimensionIndex(Axes.CHANNEL)) + "\n";
 
-        return s;
-    }
+		return s;
+	}
 
-    public static String getInfo(Dataset dataset) {
-        return getInfo(dataset, "");
-    }
+	public static String getInfo(Dataset dataset) {
+		return getInfo(dataset, "");
+	}
 
-    /**
-     * Check if Z and Time dimensions should be swapped in a given dataset. If it does then ask user
-     * if he wants to swap them.
-     *
-     * @param ij
-     * @param dataset
-     */
-    public static void askToSwapTimeAndZDimensions(ImageJ ij, Dataset dataset) {
+	/**
+	 * Check if Z and Time dimensions should be swapped in a given dataset. If it
+	 * does then ask user if he wants to swap them.
+	 *
+	 * @param ij
+	 * @param dataset
+	 */
+	public static void askToSwapTimeAndZDimensions(ImageJ ij, Dataset dataset) {
 
-        int zIdx = dataset.dimensionIndex(Axes.Z);
-        int timeIdx = dataset.dimensionIndex(Axes.TIME);
+		int zIdx = dataset.dimensionIndex(Axes.Z);
+		int timeIdx = dataset.dimensionIndex(Axes.TIME);
 
-        long timeDim = dataset.dimension(timeIdx);
-        long zDim = dataset.dimension(zIdx);
+		long timeDim = dataset.dimension(timeIdx);
+		long zDim = dataset.dimension(zIdx);
 
-        if (timeDim < zDim) {
-            String mess = new String();
-            mess += "It appears this image has " + timeDim + " timepoints";
-            mess += " and " + zDim + " Z slices.\n";
-            mess += "Do you want to swap Z and T axes ?";
-            Result result = ij.ui().showDialog(mess,
-                    MessageType.QUESTION_MESSAGE,
-                    OptionType.YES_NO_OPTION);
-            result.equals(YES_OPTION);
+		if (timeDim < zDim) {
+			String mess = new String();
+			mess += "It appears this image has " + timeDim + " timepoints";
+			mess += " and " + zDim + " Z slices.\n";
+			mess += "Do you want to swap Z and T axes ?";
+			Result result = ij.ui().showDialog(mess, MessageType.QUESTION_MESSAGE,
+				OptionType.YES_NO_OPTION);
+			result.equals(YES_OPTION);
 
-            if (result.equals(YES_OPTION)) {
-                if (zIdx != -1) {
-                    dataset.axis(zIdx).setType(Axes.TIME);
-                }
-                if (timeIdx != -1) {
-                    dataset.axis(timeIdx).setType(Axes.Z);
-                }
-            }
+			if (result.equals(YES_OPTION)) {
+				if (zIdx != -1) {
+					dataset.axis(zIdx).setType(Axes.TIME);
+				}
+				if (timeIdx != -1) {
+					dataset.axis(timeIdx).setType(Axes.Z);
+				}
+			}
 
-        }
+		}
 
-    }
+	}
 
-    /**
-     * Check if Z and Time dimensions should be swapped in a given dataset. If it does then swap
-     * them without asking.
-     *
-     * @param ij
-     * @param dataset
-     */
-    public static void swapTimeAndZDimensions(ImageJ ij, Dataset dataset) {
+	/**
+	 * Check if Z and Time dimensions should be swapped in a given dataset. If it
+	 * does then swap them without asking.
+	 *
+	 * @param ij
+	 * @param dataset
+	 */
+	public static void swapTimeAndZDimensions(ImageJ ij, Dataset dataset) {
 
-        int zIdx = dataset.dimensionIndex(Axes.Z);
-        int timeIdx = dataset.dimensionIndex(Axes.TIME);
+		int zIdx = dataset.dimensionIndex(Axes.Z);
+		int timeIdx = dataset.dimensionIndex(Axes.TIME);
 
-        long timeDim = dataset.dimension(timeIdx);
-        long zDim = dataset.dimension(zIdx);
+		long timeDim = dataset.dimension(timeIdx);
+		long zDim = dataset.dimension(zIdx);
 
-        if (timeDim < zDim) {
-            if (zIdx != -1) {
-                dataset.axis(zIdx).setType(Axes.TIME);
-            }
-            if (timeIdx != -1) {
-                dataset.axis(timeIdx).setType(Axes.Z);
-            }
-        }
+		if (timeDim < zDim) {
+			if (zIdx != -1) {
+				dataset.axis(zIdx).setType(Axes.TIME);
+			}
+			if (timeIdx != -1) {
+				dataset.axis(timeIdx).setType(Axes.Z);
+			}
+		}
 
-    }
+	}
 
-    static Roi checkForROIs(ImageDisplay imageDisplay, ConvertService convert, UIService ui) {
-        // TODO : imageDisplay should be used here
-        
-        ImagePlus imp = IJ.getImage();
-        Roi roi = imp.getRoi();
+	static Roi checkForROIs(Dataset dataset) throws NoLineException {
+		// TODO : dataset should be used here
 
-        if (roi == null) {
-            // Look in ROI manager, if open
-            RoiManager rm = RoiManager.getInstance();
-            if (rm != null)
-                roi = rm.getRoi(0);
-        }
+		ImagePlus imp = ij.WindowManager.getCurrentImage();
 
-        if (roi == null) {
-            ui.showDialog("Please define a line in order to build the kymograph.");
-            return null;
-        }
+		Roi roi = null;
+		if (imp != null) {
+			roi = imp.getRoi();
+		}
 
-        if (!"Straight Line".equals(roi.getTypeAsString())
-                && !"Polyline".equals(roi.getTypeAsString())) {
-            ui.showDialog("Please use the Straight Line or Segmented Line selection tool.");
-            return null;
-        }
+		if (roi == null) {
+			// Look in ROI manager, if open
+			RoiManager rm = RoiManager.getInstance();
+			if (rm != null) roi = rm.getRoi(0);
+		}
 
-        return roi;
-    }
+		if (roi == null) {
+			throw new NoLineException("Please define a line in order to build the kymograph.");
+		}
+
+		if (!"Straight Line".equals(roi.getTypeAsString()) && !"Polyline".equals(roi
+			.getTypeAsString()))
+		{
+			throw new NoLineException("Please use the Straight Line or Segmented Line selection tool.");
+		}
+
+		return roi;
+	}
 
 }
