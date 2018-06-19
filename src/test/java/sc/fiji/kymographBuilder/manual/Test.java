@@ -30,6 +30,8 @@ import net.imagej.Dataset;
 import net.imagej.ImageJ;
 
 import ij.gui.Line;
+import ij.gui.PolygonRoi;
+import ij.gui.Roi;
 import ij.plugin.frame.RoiManager;
 import sc.fiji.kymographBuilder.KymographBuilder;
 
@@ -44,11 +46,18 @@ public class Test {
 		Dataset dataset = (Dataset) ij.io().open(fname);
 		ij.ui().show(dataset);
 
-		// Add rois
+		// Add a line
 		RoiManager rm = RoiManager.getRoiManager();
 		rm.runCommand("Open");
+
 		Line line = new Line(10, 10, 50, 50);
-		rm.addRoi(line);
+		//rm.addRoi(line);
+
+		float[] xPoints = new float[] { 10, 20, 50 };
+		float[] yPoints = new float[] { 10, 30, 35 };
+		PolygonRoi line2 = new PolygonRoi(xPoints, yPoints, Roi.POLYLINE);
+		rm.addRoi(line2);
+
 		rm.runCommand("Show All");
 
 		// Launch the command.

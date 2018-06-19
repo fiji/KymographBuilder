@@ -39,6 +39,31 @@ public class TestKymographBuilder extends AbstractTest {
 				assertEquals(output.numDimensions(), dataset.numDimensions() - 1);
 			}*/
 
+	/*	@Test
+	public void TestKymographBuilderPolyline() throws IOException, InterruptedException,
+		ExecutionException
+	{
+		final String sampleImage =
+			"8bit-unsigned&pixelType=uint8&indexed=true&lengths=10,10,5&axes=X,Y,Time.fake";
+	
+		Dataset dataset = (Dataset) io.open(sampleImage);
+	
+		Map<String, Object> inputs = new HashMap<>();
+		inputs.put("input", dataset);
+	
+		// Add a line
+		// TODO: I can't run this test on Travis because ROIManager can't run headless...
+		float[] xPoints = new float[] { 1, 2, 5 };
+		float[] yPoints = new float[] { 1, 3, 3 };
+		PolygonRoi line = new PolygonRoi(xPoints, yPoints, Roi.POLYLINE);
+		rm.addRoi(line);
+	
+		CommandModule module = command.run(KymographBuilder.class, true, inputs).get();
+		Dataset output = (Dataset) module.getOutput("kymograph");
+	
+		assertEquals(output.numDimensions(), dataset.numDimensions() - 1);
+	}*/
+
 	@Test
 	public void TestKymographBuilderCommandException() throws IOException, InterruptedException,
 		ExecutionException
