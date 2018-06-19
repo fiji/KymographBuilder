@@ -63,14 +63,13 @@ public class TestKymographBuilder extends AbstractTest {
 	public void TestKymographBuilderCommandTwoDimensions() throws IOException, InterruptedException,
 		ExecutionException
 	{
-		final String sampleImage =
-			"8bit-unsigned&pixelType=uint8&lengths=10,10&axes=X,Y.fake";
+		final String sampleImage = "8bit-unsigned&pixelType=uint8&lengths=10,10&axes=X,Y.fake";
 
 		Dataset dataset = (Dataset) io.open(sampleImage);
 
 		Map<String, Object> inputs = new HashMap<>();
 		inputs.put("input", dataset);
-		
+
 		// Don't add line.
 
 		CommandModule module = command.run(KymographBuilder.class, true, inputs).get();

@@ -1,3 +1,4 @@
+
 package sc.fiji.kymographBuilder;
 
 import net.imagej.ImageJ;

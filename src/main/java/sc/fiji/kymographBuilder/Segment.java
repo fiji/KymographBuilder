@@ -27,50 +27,51 @@
 package sc.fiji.kymographBuilder;
 
 /**
- * Simple Line class. I called it Segment instead of Line to avoid name conflict.
+ * Simple Line class. I called it Segment instead of Line to avoid name
+ * conflict.
  *
  * @author Hadrien Mary
  */
 class Segment {
 
-    public final int xStart;
-    public final int yStart;
-    public final int xEnd;
-    public final int yEnd;
+	public final int xStart;
+	public final int yStart;
+	public final int xEnd;
+	public final int yEnd;
 
-    private Double length;
+	private Double length;
 
-    public Segment(int xStart, int yStart, int xEnd, int yEnd) {
-        this.xStart = xStart;
-        this.yStart = yStart;
-        this.xEnd = xEnd;
-        this.yEnd = yEnd;
-    }
+	public Segment(int xStart, int yStart, int xEnd, int yEnd) {
+		this.xStart = xStart;
+		this.yStart = yStart;
+		this.xEnd = xEnd;
+		this.yEnd = yEnd;
+	}
 
-    public double getLength() {
-        if (this.length == null) {
-            this.length = Math.sqrt(Math.pow(this.xStart - this.xEnd, 2)
-                    + Math.pow(this.yStart - this.yEnd, 2));
-        }
-        return this.length;
-    }
+	public double getLength() {
+		if (this.length == null) {
+			this.length = Math.sqrt(Math.pow(this.xStart - this.xEnd, 2) + Math.pow(this.yStart -
+				this.yEnd, 2));
+		}
+		return this.length;
+	}
 
-    public double[] getScaledVector() {
-        double[] v = new double[2];
-        double d = this.getLength();
-        v[0] = (this.xStart - this.xEnd) / d;
-        v[1] = (this.yStart - this.yEnd) / d;
-        return v;
-    }
+	public double[] getScaledVector() {
+		double[] v = new double[2];
+		double d = this.getLength();
+		v[0] = (this.xStart - this.xEnd) / d;
+		v[1] = (this.yStart - this.yEnd) / d;
+		return v;
+	}
 
-    @Override
-    public String toString() {
-        String s = new String();
-        s += "xStart : " + this.xStart + " | ";
-        s += "yStart : " + this.yStart + " | ";
-        s += "xEnd : " + this.xEnd + " | ";
-        s += "yEnd: " + this.yEnd;
-        return s;
-    }
+	@Override
+	public String toString() {
+		String s = new String();
+		s += "xStart : " + this.xStart + " | ";
+		s += "yStart : " + this.yStart + " | ";
+		s += "xEnd : " + this.xEnd + " | ";
+		s += "yEnd: " + this.yEnd;
+		return s;
+	}
 
 }
