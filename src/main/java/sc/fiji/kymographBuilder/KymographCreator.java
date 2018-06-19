@@ -217,13 +217,6 @@ public class KymographCreator {
 
 							this.kymographCursor.setPosition(new int[] { offset + j, t, i, channel });
 							final T pixel = (T) this.kymographCursor.get();
-							/*						log.info(offset + j);
-													log.info(t);
-													log.info(i);
-													log.info(channel);
-													log.info(pixel);
-													log.info(this.datasetCursor.get());
-													log.info("---------------");*/
 							pixel.set((T) this.datasetCursor.get());
 						}
 					}
