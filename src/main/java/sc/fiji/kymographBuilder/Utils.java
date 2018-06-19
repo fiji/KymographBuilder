@@ -50,7 +50,7 @@ public class Utils {
 	 *
 	 * @param dataset
 	 * @param prefix
-	 * @return
+	 * @return informations
 	 */
 	public static String getInfo(Dataset dataset, String prefix) {
 		String s = new String();

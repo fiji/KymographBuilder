@@ -42,7 +42,6 @@ import org.scijava.convert.ConvertService;
 import org.scijava.log.LogService;
 import org.scijava.plugin.Parameter;
 
-import ij.ImagePlus;
 import ij.gui.Line;
 
 /**
@@ -70,8 +69,8 @@ public class KymographCreator {
 
 	private final LinesBuilder linesBuilder;
 
-	private RandomAccess datasetCursor;
-	private RandomAccess kymographCursor;
+	private RandomAccess<?> datasetCursor;
+	private RandomAccess<?> kymographCursor;
 
 	private final int zPosition;
 
@@ -168,8 +167,6 @@ public class KymographCreator {
 		int npoints;
 		int x;
 		int y;
-
-		ImagePlus imp = convert.convert(this.dataset, ImagePlus.class);
 
 		// Iterate over all parallel lines (defined by lineWidth)
 		for (int i = 0; i < lineWidth; i++) {
