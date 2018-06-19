@@ -19,7 +19,7 @@ import ij.plugin.frame.RoiManager;
 
 public class TestKymographBuilder extends AbstractTest {
 
-		@Test
+	@Test
 		public void TestKymographBuilderCommand() throws IOException, InterruptedException,
 			ExecutionException
 		{
@@ -33,7 +33,7 @@ public class TestKymographBuilder extends AbstractTest {
 	
 			// Add a line
 			RoiManager rm = RoiManager.getRoiManager();
-			Line line = new Line(10, 10, 50, 50);
+			Line line = new Line(1, 1, 5, 5);
 			rm.addRoi(line);
 	
 			CommandModule module = command.run(KymographBuilder.class, true, inputs).get();
@@ -58,7 +58,27 @@ public class TestKymographBuilder extends AbstractTest {
 
 		CommandModule module = command.run(KymographBuilder.class, true, inputs).get();
 		Dataset output = (Dataset) module.getOutput("kymograph");
+
+		assertNull(output);
+	}
+
+	@Test
+	public void TestKymographBuilderCommandTwoDimensions() throws IOException, InterruptedException,
+		ExecutionException
+	{
+		final String sampleImage =
+			"8bit-unsigned&pixelType=uint8&lengths=10,10&axes=X,Y.fake";
+
+		Dataset dataset = (Dataset) io.open(sampleImage);
+
+		Map<String, Object> inputs = new HashMap<>();
+		inputs.put("input", dataset);
 		
+		// Don't add line.
+
+		CommandModule module = command.run(KymographBuilder.class, true, inputs).get();
+		Dataset output = (Dataset) module.getOutput("kymograph");
+
 		assertNull(output);
 	}
 

@@ -97,6 +97,11 @@ public class KymographBuilder implements Command {
 
 		log.info("Running " + PLUGIN_NAME + " version " + VERSION);
 
+		if (input.numDimensions() < 3) {
+			log.error("The image must have at least 3 dimensions.");
+			return;
+		}
+
 		Roi roi = null;
 		try {
 			roi = Utils.checkForROIs(input);
