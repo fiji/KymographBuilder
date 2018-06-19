@@ -23,44 +23,36 @@
  * THE SOFTWARE.
  * #L%
  */
-package sc.fiji.kymographBuilder;
-import ij.plugin.frame.RoiManager;
-import sc.fiji.kymographBuilder.KymographBuilder;
 
-import java.io.IOException;
+package sc.fiji.kymographBuilder.manual;
 
 import net.imagej.Dataset;
 import net.imagej.ImageJ;
 
-public class Main {
+import ij.gui.Line;
+import ij.plugin.frame.RoiManager;
+import sc.fiji.kymographBuilder.KymographBuilder;
 
-    public static void main(final String... args) throws Exception {
-        // Launch ImageJ as usual.
-        final ImageJ ij = net.imagej.Main.launch(args);
+public class Test {
 
-        // Load image and rois test data
-        Main.loadTestData(ij);
+	public static void main(final String... args) throws Exception {
+		// Launch ImageJ as usual.
+		final ImageJ ij = new ImageJ();
+		ij.ui().showUI();
 
-        // Launch the command.
-        ij.command().run(KymographBuilder.class, true);
-    }
+		String fname = "/home/hadim/Documents/Code/Postdoc/ij/testdata/mt-small.tif";
+		Dataset dataset = (Dataset) ij.io().open(fname);
+		ij.ui().show(dataset);
 
-    public static void loadTestData(ImageJ ij) throws IOException {
+		// Add rois
+		RoiManager rm = RoiManager.getRoiManager();
+		// rm.runCommand("Open",
+		// Main.class.getResource("/testdata/mt.roi").getPath());
+		Line line = new Line(10, 10, 50, 50);
+		rm.addRoi(line);
+		rm.runCommand("Show All");
 
-        // Open image
-        String fpath;
-        fpath = Main.class.getResource("/testdata/mt.tif").getPath();
-        Dataset ds = ij.dataset().open(fpath);
-        ij.display().createDisplay(ds);
-
-        ij.log().info("Load mt.tif data.");
-
-        // Add rois
-        RoiManager rm = RoiManager.getRoiManager();
-        rm.runCommand("Open", Main.class.getResource("/testdata/mt.roi").getPath());
-        rm.runCommand("Show All");
-
-        ij.log().info("Load ROIs data.");
-
-    }
+		// Launch the command.
+		ij.command().run(KymographBuilder.class, true);
+	}
 }
