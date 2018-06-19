@@ -46,8 +46,7 @@ public class Test {
 
 		// Add rois
 		RoiManager rm = RoiManager.getRoiManager();
-		// rm.runCommand("Open",
-		// Main.class.getResource("/testdata/mt.roi").getPath());
+		rm.runCommand("Open");
 		Line line = new Line(10, 10, 50, 50);
 		rm.addRoi(line);
 		rm.runCommand("Show All");
