@@ -15,7 +15,7 @@
 
 	<name>KymographBuilder</name>
 	<description>KymographBuilder: Yet Another Kymograph Fiji plugin.</description>
-	<url>http://imagej.net/KymographBuilder</url>
+	<url>https://imagej.net/KymographBuilder</url>
 	<inceptionYear>2016</inceptionYear>
 	<organization>
 		<name>Fiji</name>
@@ -33,7 +33,7 @@
 		<developer>
 			<id>hadim</id>
 			<name>Hadrien Mary</name>
-			<url>http://imagej.net/User:Hadim</url>
+			<url>https://imagej.net/User:Hadim</url>
 			<roles>
 				<role>founder</role>
 				<role>lead</role>
@@ -48,7 +48,7 @@
 		<developer>
 			<id>ctrueden</id>
 			<name>Curtis Rueden</name>
-			<url>http://imagej.net/User:Rueden</url>
+			<url>https://imagej.net/User:Rueden</url>
 			<roles>
 				<role>maintainer</role>
 			</roles>
@@ -56,7 +56,7 @@
 		<developer>
 			<id>tferr</id>
 			<name>Tiago Ferreira</name>
-			<url>http://imagej.net/User:Tiago</url>
+			<url>https://imagej.net/User:Tiago</url>
 			<roles>
 				<role>developer</role>
 			</roles>
@@ -103,7 +103,7 @@
 	<repositories>
 		<repository>
 			<id>imagej.public</id>
-			<url>http://maven.imagej.net/content/groups/public</url>
+			<url>https://maven.imagej.net/content/groups/public</url>
 		</repository>
 	</repositories>
 
