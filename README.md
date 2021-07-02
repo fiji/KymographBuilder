@@ -1,4 +1,4 @@
-[![](https://travis-ci.org/fiji/KymographBuilder.svg?branch=master)](https://travis-ci.org/fiji/KymographBuilder)
+[![](https://github.com/fiji/KymographBuilder/actions/workflows/build-main.yml/badge.svg)](https://github.com/fiji/KymographBuilder/actions/workflows/build-main.yml)
 
 [![DOI](https://zenodo.org/badge/4163/fiji/KymographBuilder.svg)](https://zenodo.org/badge/latestdoi/4163/fiji/KymographBuilder)
 
