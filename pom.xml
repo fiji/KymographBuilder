@@ -77,7 +77,7 @@
 	</mailingLists>
 
 	<scm>
-		<connection>scm:git:git://github.com/fiji/KymographBuilder</connection>
+		<connection>scm:git:https://github.com/fiji/KymographBuilder</connection>
 		<developerConnection>scm:git:git@github.com:fiji/KymographBuilder</developerConnection>
 		<tag>HEAD</tag>
 		<url>https://github.com/fiji/KymographBuilder</url>
