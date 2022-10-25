@@ -2,7 +2,7 @@
  * #%L
  * KymographBuilder: Yet Another Kymograph Fiji plugin.
  * %%
- * Copyright (C) 2016 - 2017 Fiji developers.
+ * Copyright (C) 2016 - 2022 Fiji developers.
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,12 +29,12 @@ package sc.fiji.kymographBuilder;
 import static org.scijava.ui.DialogPrompt.Result.YES_OPTION;
 
 import net.imagej.Dataset;
-import net.imagej.ImageJ;
 import net.imagej.axis.Axes;
 
 import org.scijava.ui.DialogPrompt.MessageType;
 import org.scijava.ui.DialogPrompt.OptionType;
 import org.scijava.ui.DialogPrompt.Result;
+import org.scijava.ui.UIService;
 
 import ij.ImagePlus;
 import ij.gui.Roi;
@@ -86,7 +86,7 @@ public class Utils {
 	 * @param ij
 	 * @param dataset
 	 */
-	public static void askToSwapTimeAndZDimensions(ImageJ ij, Dataset dataset) {
+	public static void askToSwapTimeAndZDimensions(Dataset dataset) {
 
 		int zIdx = dataset.dimensionIndex(Axes.Z);
 		int timeIdx = dataset.dimensionIndex(Axes.TIME);
@@ -99,7 +99,8 @@ public class Utils {
 			mess += "It appears this image has " + timeDim + " timepoints";
 			mess += " and " + zDim + " Z slices.\n";
 			mess += "Do you want to swap Z and T axes ?";
-			Result result = ij.ui().showDialog(mess, MessageType.QUESTION_MESSAGE,
+			UIService ui = dataset.context().service(UIService.class);
+			Result result = ui.showDialog(mess, MessageType.QUESTION_MESSAGE,
 				OptionType.YES_NO_OPTION);
 			result.equals(YES_OPTION);
 
@@ -123,7 +124,7 @@ public class Utils {
 	 * @param ij
 	 * @param dataset
 	 */
-	public static void swapTimeAndZDimensions(ImageJ ij, Dataset dataset) {
+	public static void swapTimeAndZDimensions(Dataset dataset) {
 
 		int zIdx = dataset.dimensionIndex(Axes.Z);
 		int timeIdx = dataset.dimensionIndex(Axes.TIME);

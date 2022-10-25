@@ -1,7 +1,7 @@
-# @Context context
-# @Dataset dataset
-# @ImageJ ij
-# @LogService log
+#@ Context context
+#@ Dataset dataset
+#@ UIService ui
+#@ LogService log
 
 # This script exemplifies how to instruct KymographBuilder to
 # process all the line ROIs present in the ROI Manager. For more
@@ -27,7 +27,7 @@ if validDataset(dataset) and rm and rm.getCount():
             kfactory.build()
             counter += 1
             title = "Kymograph" + str(counter).zfill(3) + "_" + roi.getName()
-            ij.ui().show(title, kfactory.getKymograph())
+            ui.show(title, kfactory.getKymograph())
     log.info("MultiKymographBuilder Finished. " + str(counter) + " ROIs processed")
 else:
     log.error("Either the ROI Manager is empty or " + dataset.getName() +" has invalid dimensions")

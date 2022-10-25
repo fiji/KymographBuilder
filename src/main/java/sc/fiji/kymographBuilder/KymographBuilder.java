@@ -2,7 +2,7 @@
  * #%L
  * KymographBuilder: Yet Another Kymograph Fiji plugin.
  * %%
- * Copyright (C) 2016 - 2017 Fiji developers.
+ * Copyright (C) 2016 - 2022 Fiji developers.
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,11 +29,11 @@ package sc.fiji.kymographBuilder;
 import io.scif.services.DatasetIOService;
 
 import net.imagej.Dataset;
-import net.imagej.ImageJ;
 import net.imagej.display.ImageDisplayService;
 import net.imagej.display.OverlayService;
 import net.imagej.patcher.LegacyInjector;
 
+import org.scijava.Context;
 import org.scijava.ItemIO;
 import org.scijava.app.StatusService;
 import org.scijava.command.Command;
@@ -54,7 +54,7 @@ public class KymographBuilder implements Command {
 	}
 
 	@Parameter
-	private ImageJ ij;
+	private Context ctx;
 
 	@Parameter
 	private LogService log;
@@ -112,12 +112,12 @@ public class KymographBuilder implements Command {
 		}
 
 		// Check if T and Z need to be swapped.
-		Utils.swapTimeAndZDimensions(ij, input);
+		Utils.swapTimeAndZDimensions(input);
 
 		// Print some infos
 		log.info(Utils.getInfo(input, "\t"));
 
-		KymographFactory factory = new KymographFactory(ij.context(), input, roi);
+		KymographFactory factory = new KymographFactory(ctx, input, roi);
 		factory.build();
 
 		// Get the results, add to command output.

@@ -2,7 +2,7 @@
  * #%L
  * KymographBuilder: Yet Another Kymograph Fiji plugin.
  * %%
- * Copyright (C) 2016 - 2017 Fiji developers.
+ * Copyright (C) 2016 - 2022 Fiji developers.
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
