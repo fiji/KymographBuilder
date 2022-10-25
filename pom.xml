@@ -11,7 +11,7 @@
 
 	<groupId>sc.fiji</groupId>
 	<artifactId>KymographBuilder</artifactId>
-	<version>2.1.2-SNAPSHOT</version>
+	<version>3.0.0</version>
 
 	<name>KymographBuilder</name>
 	<description>KymographBuilder: Yet Another Kymograph Fiji plugin.</description>
@@ -79,7 +79,7 @@
 	<scm>
 		<connection>scm:git:https://github.com/fiji/KymographBuilder</connection>
 		<developerConnection>scm:git:git@github.com:fiji/KymographBuilder</developerConnection>
-		<tag>HEAD</tag>
+		<tag>KymographBuilder-3.0.0</tag>
 		<url>https://github.com/fiji/KymographBuilder</url>
 	</scm>
 	<issueManagement>
