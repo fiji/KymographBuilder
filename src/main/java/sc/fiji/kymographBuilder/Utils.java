@@ -83,7 +83,6 @@ public class Utils {
 	 * Check if Z and Time dimensions should be swapped in a given dataset. If it
 	 * does then ask user if he wants to swap them.
 	 *
-	 * @param ij
 	 * @param dataset
 	 */
 	public static void askToSwapTimeAndZDimensions(Dataset dataset) {
@@ -121,7 +120,6 @@ public class Utils {
 	 * Check if Z and Time dimensions should be swapped in a given dataset. If it
 	 * does then swap them without asking.
 	 *
-	 * @param ij
 	 * @param dataset
 	 */
 	public static void swapTimeAndZDimensions(Dataset dataset) {
