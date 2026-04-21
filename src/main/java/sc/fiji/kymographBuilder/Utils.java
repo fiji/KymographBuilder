@@ -161,9 +161,7 @@ public class Utils {
 			throw new NoLineException("Please define a line in order to build the kymograph.");
 		}
 
-		if (!"Straight Line".equals(roi.getTypeAsString()) && !"Polyline".equals(roi
-			.getTypeAsString()))
-		{
+		if (!roi.isLine()) {
 			throw new NoLineException("Please use the Straight Line or Segmented Line selection tool.");
 		}
 
