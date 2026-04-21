@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.scijava</groupId>
 		<artifactId>pom-scijava</artifactId>
-		<version>33.2.0</version>
+		<version>44.0.0</version>
 		<relativePath />
 	</parent>
 
@@ -31,24 +31,9 @@
 
 	<developers>
 		<developer>
-			<id>hadim</id>
-			<name>Hadrien Mary</name>
-			<url>https://imagej.net/User:Hadim</url>
-			<roles>
-				<role>founder</role>
-				<role>lead</role>
-				<role>developer</role>
-				<role>debugger</role>
-				<role>reviewer</role>
-				<role>support</role>
-				<role>maintainer</role>
-			</roles>
-			<timezone>-5</timezone>
-		</developer>
-		<developer>
 			<id>ctrueden</id>
 			<name>Curtis Rueden</name>
-			<url>https://imagej.net/User:Rueden</url>
+			<url>https://imagej.net/people/ctrueden</url>
 			<roles>
 				<role>maintainer</role>
 			</roles>
@@ -56,16 +41,18 @@
 		<developer>
 			<id>tferr</id>
 			<name>Tiago Ferreira</name>
-			<url>https://imagej.net/User:Tiago</url>
+			<url>https://imagej.net/people/tferr</url>
 			<roles>
 				<role>developer</role>
 			</roles>
 		</developer>
 	</developers>
 	<contributors>
-		<!-- NB: Need at least one element to override the parent. See: https://issues.apache.org/jira/browse/MNG-5220 -->
 		<contributor>
-			<name>None</name>
+			<name>Hadrien Mary</name>
+			<url>https://imagej.net/people/hadim</url>
+			<properties><id>hadim</id></properties>
+			<roles><role>founder</role></roles>
 		</contributor>
 	</contributors>
 
@@ -98,14 +85,8 @@
 
 		<!-- NB: Deploy releases to the SciJava Maven repository. -->
 		<releaseProfiles>sign,deploy-to-scijava</releaseProfiles>
+		<scijava.jvm.version>8</scijava.jvm.version>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>scijava.public</id>
-			<url>https://maven.scijava.org/content/groups/public</url>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<!--ImageJ -->
@@ -165,4 +146,11 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>scijava.public</id>
+			<url>https://maven.scijava.org/content/groups/public</url>
+		</repository>
+	</repositories>
 </project>
