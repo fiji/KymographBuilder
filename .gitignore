@@ -3,6 +3,7 @@
 
 ## Eclipse ##
 /.classpath
+/.factorypath
 /.project
 /.settings/
 
@@ -18,3 +19,6 @@ nb-configuration.xml
 
 ## MacOSX ##
 .DS_Store
+
+## IntelliJ ##
+/.idea/
